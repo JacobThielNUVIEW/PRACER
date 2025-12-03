@@ -2,7 +2,7 @@
 
 ## Color tokens and linting
 
-This project centralizes UI color tokens under `src/styles/tokens`. Use `npm run check:colors` to scan for inline color literals or legacy Tailwind classes (like `bg-gold` or `bg-[#...`) across the codebase — the script will exit non-zero if it finds a match that should be tokenized.
+This project centralizes UI color tokens under `src/styles/tokens`. Use `npm run check:colors` to scan for inline color literals or legacy Tailwind classes across the codebase — the script will exit non-zero if it finds a match that should be tokenized. Prefer using the CSS variables in `src/styles/tokens/colors.css` or the `cssVar()` helper in `src/styles/tokens/colors.ts` when adding colors.
 
 
 ### <PartnerLogo />
