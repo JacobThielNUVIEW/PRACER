@@ -1,13 +1,13 @@
 {
-  "name": "neverstop-app",
+  "name": "racelay-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint",
-  "check:colors": "node scripts/find-colors.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "check:colors": "node scripts/find-colors.js"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.15.0",
