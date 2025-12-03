@@ -1,107 +1,40 @@
-/* =======================================
-   RACELAY Brand & Partner Color Schema
-   Master Theme File for Dashboard
-   ======================================= */
+/* styles/colors.css — RACELAY (v1.1 canonical tokens) */
+:root{
+  /* CORE HUD / SURFACE */
+  --rac-depth:        #0B0C10;   /* deepest background */
+  --rac-surface:      #13151A;   /* cards, panels */
+  --rac-border:       #272A33;   /* hairlines, separators */
 
-/* --- 1. RACELAY Base / Background --- */
-:root {
-  --rac-slate-900: #0E0E0E; /* Deepest background */
-  --rac-slate-800: #161616; /* Cards, sidebar, panels */
-  --rac-slate-700: #262626; /* Borders, input outlines */
-  --rac-slate-600: #333333; /* Hover / interactive highlights */
+  /* PRIMARY ACTION / HIGHLIGHT */
+  --rac-blue:         #0EA5E9;   /* primary brand blue */
+  --rac-blue-glow:    rgba(14,165,233,0.20); /* ambient glow / scans */
 
-  /* --- Main Accent Colors --- */
-  --rac-blue: #3DA5F5;       /* Primary buttons / highlights */
-  --rac-blue-light: #66B3FF; /* Hover / active states */
-  --rac-white: #F0F0F0;      /* Body text / neutral */
-  --rac-gray-light: #A0A0A0; /* Secondary text */
-  --rac-orange: #FC4C02;     /* Activity highlight / Strava accent */
-}
+  /* SIGNALS */
+  --rac-signal:       #F97316;   /* warnings / callouts */
 
-/* --- Legacy Gold & Silver (used by tailwind classes 'gold' / 'silver') --- */
-:root {
-  --gold-400: #fbbf24; /* alt / light */
-  --gold-500: #f59e0b; /* main gold */
-  --gold-600: #d97706; /* dark */
-  --gold: var(--gold-500);
+  /* TEXT */
+  --rac-text-main:    #F1F5F9;   /* main copy on dark */
+  --rac-text-muted:   #94A3B8;   /* secondary labels */
 
-  --silver-400: #e5e7eb; /* light */
-  --silver-500: #cfd8dc; /* main */
-  --silver-600: #b0b6be; /* dark */
-  --silver: var(--silver-500);
-}
+  /* SYSTEM (optional but recommended) */
+  --rac-success:      #10B981;
+  --rac-warning:      #FACC15;
+  --rac-danger:       #EF4444;
 
-/* --- 2. Partner & TM Colors --- */
+  /* PARTNER (data-only; don't use as backgrounds) */
+  --brand-strava:     #FC4C02;
+  --brand-garmin:     #00A3E0;
+  --brand-apple:      #34C759;
+  --brand-nike:       #E11931;
 
-/* Strava */
-:root {
-  --strava-orange: #FC4C02;  /* Main Brand Color */
-  --strava-dark: #111111;    /* Dark Background / icon backing */
-  --strava-gray: #999999;    /* Text / secondary use */
-}
-
-/* Apple Fitness */
-:root {
-  --apple-green: #34C759; /* Success / completed activity */
-  --apple-gray: #E5E5EA;  /* Neutral / secondary */
-}
-
-/* Google brand */
-:root {
-  --google-blue: #4285F4;
-  --google-green: #34A853;
-  --google-yellow: #FBBC05;
-  --google-red: #EA4335;
-}
-
-/* Garmin */
-:root {
-  --garmin-blue: #00A3E0;  /* Garmin brand blue */
-  --garmin-gray: #5A5A5A;  /* Secondary gray / text */
-}
-
-/* Nike */
-:root {
-  --nike-red: #FF0000;
-  --nike-gray: #333333;
-}
-
-/* --- 3. Typography Colors --- */
-:root {
-  --text-primary: var(--rac-white);         /* Main text */
-  --text-secondary: var(--rac-gray-light);  /* Secondary / muted text */
-  --text-accent: var(--rac-blue);           /* Interactive / links */
-  --text-accent-alt: var(--rac-orange);     /* Activity / highlight */
-}
-
-/* --- 4. Buttons & Interactive States --- */
-:root {
-  --btn-primary-bg: var(--rac-blue);
-  --btn-primary-hover: var(--rac-blue-light);
-  --btn-secondary-bg: var(--rac-slate-700);
-  --btn-secondary-hover: var(--rac-slate-600);
-  --btn-strava-bg: var(--strava-orange);
-  --btn-strava-hover: #FF6B2B;
-  --btn-disabled: #444444;
-}
-
-/* --- 5. Sidebar & Navigation --- */
-:root {
-  --nav-bg: var(--rac-slate-800);
-  --nav-border: var(--rac-slate-700);
-  --nav-item-active-border: var(--rac-orange);
-  --nav-item-hover-bg: var(--rac-slate-700);
-}
-
-/* --- 6. Charts & Graphs --- */
-:root {
-  --chart-primary: var(--rac-orange);
-  --chart-secondary: var(--rac-blue);
-  --chart-accent: var(--rac-blue-light);
-  --chart-bg: var(--rac-slate-900);
-}
-
-/* --- 7. Glow / Effects --- */
-:root {
-  --glow-blue: rgba(62,165,245,0.2); /* Subtle tech highlights */
+  /* BACKWARDS-COMPATIBILITY ALIASES (safe to add) */
+  --brand-primary:    var(--rac-blue);
+  --brand-glow:       var(--rac-blue-glow);
+  --primary:          var(--rac-blue);
+  --primary-glow:     var(--rac-blue-glow);
+  --background:       var(--rac-depth);
+  --surface:          var(--rac-surface);
+  --border:           var(--rac-border);
+  --text-main:        var(--rac-text-main);
+  --text-muted:       var(--rac-text-muted);
 }

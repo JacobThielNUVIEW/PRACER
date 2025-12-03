@@ -155,7 +155,7 @@ export default function Dashboard() {
             <div className="w-10 h-10 transition-transform duration-500 group-hover:rotate-180">
               <Logo />
             </div>
-            <h1 className="text-2xl font-black text-rac-signal tracking-tighter">NeverStop</h1>
+            <h1 className="text-2xl font-black text-rac-signal tracking-tighter">REACELAY</h1>
           </div>
           <button
             onClick={handleSignOut}

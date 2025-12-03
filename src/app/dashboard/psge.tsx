@@ -31,7 +31,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <div className="text-center space-y-8">
-          <h1 className="text-4xl font-bold text-gold-500">NeverStop Dashboard</h1>
+          <h1 className="text-4xl font-bold text-gold-500">REACELAY Dashboard</h1>
           <ConnectStrava />
         </div>
       </div>

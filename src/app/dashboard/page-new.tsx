@@ -45,7 +45,7 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-  <div className="text-6xl font-black text-gold-500 animate-pulse-gold">NeverStop</div>
+  <div className="text-6xl font-black text-gold-500 animate-pulse-gold">REACELAY</div>
       </div>
     );
   }
@@ -54,7 +54,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center p-8">
         <div className="max-w-md w-full bg-slate-900/80 backdrop-blur-xl rounded-3xl p-12 text-center space-y-8 border border-slate-800">
-            <h1 className="text-5xl font-black text-gold-500 animate-pulse-gold">NeverStop</h1>
+            <h1 className="text-5xl font-black text-gold-500 animate-pulse-gold">REACELAY</h1>
           <p className="text-xl text-slate-300">Connect your data to unlock adaptive training</p>
           <Link
             href="/auth"
