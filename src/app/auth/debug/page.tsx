@@ -9,6 +9,7 @@ export default function DebugPage() {
   const [session, setSession] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [origin, setOrigin] = useState<string | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -29,6 +30,12 @@ export default function DebugPage() {
     );
 
     return () => subscription?.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setOrigin(window.location.origin);
+    }
   }, []);
 
   return (
@@ -70,7 +77,7 @@ export default function DebugPage() {
           <h2 className="text-xl font-bold mb-4">Environment</h2>
           <div className="space-y-2 text-sm font-mono">
             <p className="text-slate-300">Supabase URL: {process.env.NEXT_PUBLIC_SUPABASE_URL}</p>
-            <p className="text-slate-300">Callback: {window.location.origin}/auth/callback</p>
+            <p className="text-slate-300">Callback: {origin ? `${origin}/auth/callback` : `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`}</p>
           </div>
         </div>
 
