@@ -1,0 +1,12 @@
+{
+  "colors": {
+    "primary": "#0070f3",
+    "primary-600": "#0366d6",
+    "secondary": "#7928CA",
+    "background": "#ffffff",
+    "surface": "#f6f6f6",
+    "success": "#21ba45",
+    "warning": "#f5a623",
+    "danger": "#e00"
+  }
+}

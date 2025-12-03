@@ -1,0 +1,11 @@
+/* Color tokens as CSS variables: import this file at the top-level (e.g., globals.css) to use tokens in CSS */
+:root {
+  --color-primary: #0070f3;
+  --color-primary-600: #0366d6;
+  --color-secondary: #7928CA;
+  --color-background: #ffffff;
+  --color-surface: #f6f6f6;
+  --color-success: #21ba45;
+  --color-warning: #f5a623;
+  --color-danger: #e00;
+}
