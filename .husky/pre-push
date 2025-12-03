@@ -1,9 +1,13 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Prevent pushing if .env.local is tracked in git
-if git ls-files --error-unmatch .env.local > /dev/null 2>&1; then
-  echo "ERROR: .env.local is tracked by git. Remove it from the index (git rm --cached .env.local) before pushing to avoid leaking secrets."
+## Prevent pushing if any .env files are tracked in git.
+# This keeps local environment files safe while allowing you to keep them locally.
+tracked_envs=$(git ls-files -- "*.env" ".env*" 2>/dev/null || true)
+if [ -n "$tracked_envs" ]; then
+  echo "ERROR: The following env-like files are tracked by git and may contain secrets:"
+  echo "$tracked_envs"
+  echo "\nRemove them from the index (example): git rm --cached <file> && git commit -m 'chore: untrack local env'"
   exit 1
 fi
 
