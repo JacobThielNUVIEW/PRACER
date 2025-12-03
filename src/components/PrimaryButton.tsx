@@ -1,15 +1,17 @@
-import React from 'react';
+import React from 'react'
 
-export function PrimaryButton({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: React.ReactNode
+}
+
+export default function PrimaryButton({ children, className = '', ...rest }: Props) {
   return (
     <button
-      className="px-8 py-4 rounded-lg font-bold uppercase tracking-wider
-                 bg-rac-blue hover:bg-rac-blue-dark text-rac-text-main
-                 shadow-[0_8px_32px_var(--rac-blue-glow)]
-                 transition-all hover:scale-105 active:scale-95"
-      {...props}
+      className={`inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--rac-blue)] hover:bg-[var(--rac-blue-glow)] text-white rounded-xl font-bold transition ${className}`}
+      {...rest}
     >
       {children}
     </button>
-  );
+  )
 }
+
