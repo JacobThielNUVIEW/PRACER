@@ -91,10 +91,10 @@ export default function AuthHandler() {
   }, [codeParam, router, supabase]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-b from-slate-950 to-slate-900">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-b from-[var(--rac-slate-900)] to-[var(--rac-slate-800)]">
       <div className="text-center space-y-4 max-w-md">
-  <div className="w-12 h-12 border-4 border-gold-500/30 border-t-gold-500 rounded-full animate-spin mx-auto"></div>
-  <p className="text-gold-500 text-lg font-semibold">{status}</p>
+  <div className="w-12 h-12 border-4 border-[var(--rac-signal)]/30 border-t-[var(--rac-signal)] rounded-full animate-spin mx-auto"></div>
+  <p className="text-[var(--rac-signal)] text-lg font-semibold">{status}</p>
         {error && (
           <div className="bg-red-900/30 border border-red-500/50 text-red-200 p-4 rounded">
             <p className="text-sm font-semibold mb-1">Authentication Error</p>

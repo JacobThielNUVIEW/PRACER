@@ -46,6 +46,14 @@
   --apple-gray: #E5E5EA;  /* Neutral / secondary */
 }
 
+/* Google brand */
+:root {
+  --google-blue: #4285F4;
+  --google-green: #34A853;
+  --google-yellow: #FBBC05;
+  --google-red: #EA4335;
+}
+
 /* Garmin */
 :root {
   --garmin-blue: #00A3E0;  /* Garmin brand blue */

@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'NeverStop',
+  title: 'REACELAY',
   description: 'Adaptive running platform',
 }
 
@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-  <body className={`${inter.className} text-gold-500 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800`}>{children}</body>
+      <body className={`${inter.className} bg-rac-depth text-rac-text-main`}>{children}</body>
     </html>
   )
 }

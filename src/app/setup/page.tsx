@@ -7,8 +7,8 @@ export default function SetupPage() {
   // Gate the page by an environment flag so it's not visible in production
   if (process.env.NEXT_PUBLIC_ENABLE_SETUP !== 'true') {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4">
-        <div className="max-w-md w-full space-y-8 text-center text-slate-400">
+      <div className="min-h-screen bg-[var(--rac-slate-900)] flex items-center justify-center px-4">
+        <div className="max-w-md w-full space-y-8 text-center text-[var(--rac-text-muted)]">
           <h1 className="text-2xl font-bold">Setup Disabled</h1>
           <p>This page is disabled. To enable, set NEXT_PUBLIC_ENABLE_SETUP=true in your environment.</p>
         </div>
@@ -30,7 +30,7 @@ export default function SetupPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: 'NeverStop@admin.com',
+          email: 'reacelay@admin.com',
       password: tempPassword,
         }),
       });
@@ -41,7 +41,7 @@ export default function SetupPage() {
         setMessage(`❌ Error: ${data.error}`);
         setSuccess(false);
       } else {
-  setMessage(`✅ Admin account created!\nEmail: NeverStop@admin.com\nPassword (temporary): ${tempPassword}\n\nYou can now login at /auth`);
+  setMessage(`✅ Admin account created!\nEmail: reacelay@admin.com\nPassword (temporary): ${tempPassword}\n\nYou can now login at /auth`);
         setSuccess(true);
       }
     } catch (err: any) {
@@ -56,8 +56,8 @@ export default function SetupPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 flex items-center justify-center px-4">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-black bg-gradient-to-r from-gold-500 to-orange bg-clip-text text-transparent mb-2">
-            NeverStop Setup
+          <h1 className="text-4xl font-black bg-gradient-to-r from-rac-signal to-orange bg-clip-text text-transparent mb-2">
+            REACELAY Setup
           </h1>
           <p className="text-slate-300">Create admin account for testing</p>
         </div>
@@ -66,7 +66,7 @@ export default function SetupPage() {
       <div className="text-sm space-y-2">
             <p className="text-slate-300">This will create an admin account with:</p>
             <ul className="text-slate-400 space-y-1 ml-4">
-              <li>📧 Email: <code className="bg-slate-900 px-2 py-1 rounded">NeverStop@admin.com</code></li>
+              <li>📧 Email: <code className="bg-slate-900 px-2 py-1 rounded">reacelay@admin.com</code></li>
         <li>🔑 Password: <code className="bg-slate-900 px-2 py-1 rounded">(You will choose it on creation)</code></li>
               <li>⭐ Premium: Yes</li>
             </ul>
@@ -75,7 +75,7 @@ export default function SetupPage() {
     <button
             onClick={createAdminAccount}
             disabled={loading}
-            className="w-full bg-gradient-to-r from-gold-500 to-orange text-slate-900 px-6 py-3 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-rac-signal to-orange text-[var(--rac-slate-900)] px-6 py-3 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Creating...' : 'Create Admin Account'}
           </button>

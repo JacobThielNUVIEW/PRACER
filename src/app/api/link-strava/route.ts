@@ -45,13 +45,13 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
 
-  // 1. Ensure user is logged into NeverStop (via Google)
+  // 1. Ensure user is logged into REACELAY (via Google)
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
-    // If the user isn't logged into NeverStop yet, force them to log in first.
-    return new Response('Not authenticated in NeverStop. Please sign in first.', { status: 401 });
+  // If the user isn't logged into REACELAY yet, force them to log in first.
+  return new Response('Not authenticated in REACELAY. Please sign in first.', { status: 401 });
   }
 
   if (!code) {

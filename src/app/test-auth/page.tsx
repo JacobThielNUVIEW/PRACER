@@ -44,20 +44,20 @@ export default function TestAuthPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-white p-8">
+      <div className="min-h-screen bg-[var(--rac-slate-900)] text-[var(--rac-white)] p-8">
         <p>Loading auth state...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-8">
+    <div className="min-h-screen bg-[var(--rac-slate-900)] text-[var(--rac-white)] p-8">
       <h1 className="text-4xl font-bold mb-8">🔍 Auth Debug</h1>
 
       <div className="space-y-6 max-w-2xl">
         {hash && (
-            <div className="bg-slate-800 p-6 rounded-lg border border-gold-500">
-              <h2 className="text-xl font-bold text-gold-500 mb-2">✓ URL Hash Detected</h2>
+            <div className="bg-[var(--rac-slate-800)] p-6 rounded-lg border border-[var(--rac-signal)]">
+              <h2 className="text-xl font-bold text-[var(--rac-signal)] mb-2">✓ URL Hash Detected</h2>
             <p className="text-xs text-slate-300 break-all">{hash.substring(0, 100)}...</p>
             {hash.includes('access_token') && (
               <p className="text-sm text-green-400 mt-2">✓ Contains access_token</p>
@@ -65,7 +65,7 @@ export default function TestAuthPage() {
           </div>
         )}
 
-        <div className="bg-slate-800 p-6 rounded-lg">
+  <div className="bg-[var(--rac-slate-800)] p-6 rounded-lg">
           <h2 className="text-xl font-bold mb-4">Session Status</h2>
           {session ? (
             <div className="space-y-2 text-sm font-mono">
@@ -79,7 +79,7 @@ export default function TestAuthPage() {
           )}
         </div>
 
-        <div className="bg-slate-800 p-6 rounded-lg">
+  <div className="bg-[var(--rac-slate-800)] p-6 rounded-lg">
           <h2 className="text-xl font-bold mb-4">User Status</h2>
           {user ? (
             <div className="space-y-2 text-sm font-mono">
@@ -93,13 +93,13 @@ export default function TestAuthPage() {
         </div>
 
         <div className="flex gap-4">
-          <a href="/" className="px-4 py-2 bg-gold-500 text-slate-900 rounded font-bold">
+          <a href="/" className="px-4 py-2 bg-[var(--rac-signal)] text-[var(--rac-slate-900)] rounded font-bold">
             Home
           </a>
-          <a href="/auth" className="px-4 py-2 bg-slate-700 text-white rounded font-bold">
+          <a href="/auth" className="px-4 py-2 bg-[var(--rac-slate-800)] text-[var(--rac-white)] rounded font-bold">
             Auth
           </a>
-          <a href="/dashboard" className="px-4 py-2 bg-slate-700 text-white rounded font-bold">
+          <a href="/dashboard" className="px-4 py-2 bg-[var(--rac-slate-800)] text-[var(--rac-white)] rounded font-bold">
             Dashboard
           </a>
         </div>

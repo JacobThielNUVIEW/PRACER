@@ -84,7 +84,7 @@ export default function ConfigTestPage() {
         </div>
 
         <div className="flex gap-4">
-          <a href="/auth" className="px-4 py-2 bg-gold-500 text-slate-900 rounded font-bold">
+          <a href="/auth" className="px-4 py-2 bg-rac-signal text-[var(--rac-slate-900)] rounded font-bold">
             Back to Auth
           </a>
           <a href="/" className="px-4 py-2 bg-slate-700 text-white rounded font-bold">

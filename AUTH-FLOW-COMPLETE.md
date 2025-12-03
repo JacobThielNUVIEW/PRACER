@@ -1,4 +1,4 @@
-# NeverStop Authentication Flow - Complete Setup
+# REACELAY Authentication Flow - Complete Setup
 
 ## ✅ How It Works Now
 
@@ -8,7 +8,7 @@
 ```
 1. User clicks "Continue with Google" on /auth page
 2. Redirected to Google login/consent screen
-3. User authorizes NeverStop to access their Google account
+3. User authorizes REACELAY to access their Google account
 4. Google redirects back to /auth/callback with authorization code
 5. Server exchanges code for session (PKCE flow)
 6. Profile automatically created in database if doesn't exist

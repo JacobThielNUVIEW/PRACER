@@ -19,7 +19,7 @@ export default function ConnectStrava() {
   return (
     <button
       onClick={linkStrava}
-      className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-gold-500 to-orange text-slate-900 px-12 py-6 rounded-2xl font-bold text-xl hover:shadow-2xl hover:shadow-[var(--gold)/0.2] hover:scale-105 transition-all duration-300 shadow-lg"
+      className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-strava-500 to-strava-600 text-white px-12 py-6 rounded-2xl font-bold text-xl hover:shadow-2xl hover:shadow-[var(--strava-orange)/0.2] hover:scale-105 transition-all duration-300 shadow-lg"
     >
       <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
         <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7.008 13.828h4.172" />

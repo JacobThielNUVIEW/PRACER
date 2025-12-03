@@ -22,6 +22,11 @@ export const colors = {
   appleGreen: '#34C759',
   appleGray: '#E5E5EA',
 
+  googleBlue: '#4285F4',
+  googleGreen: '#34A853',
+  googleYellow: '#FBBC05',
+  googleRed: '#EA4335',
+
   garminBlue: '#00A3E0',
   garminGray: '#5A5A5A',
 

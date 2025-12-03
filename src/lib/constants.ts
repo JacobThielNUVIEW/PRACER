@@ -12,17 +12,26 @@ export const IMAGES = {
   activity: '/assets/images/activity-sample.jpg',
   logos: {
     strava: '/assets/images/strava-logo.webp',
+    stravaDark: '/assets/images/strava-logo-dark.webp',
+    garmin: '/assets/images/garmin-logo.webp',
+    garminDark: '/assets/images/garmin-logo-dark.webp',
+    apple: '/assets/images/apple-logo.webp',
+    appleDark: '/assets/images/apple-logo-dark.webp',
+    nike: '/assets/images/nike-logo.webp',
+    nikeDark: '/assets/images/nike-logo-dark.webp',
   },
 } as const;
 
+import tokens from '@/styles/tokens/colors';
+
 export const COLORS = {
-  gold: '#FCD34D',
-  orange: '#F97316',
+  gold: tokens.gold || '#FCD34D',
+  orange: tokens.racOrange || '#F97316',
   slate: {
-    950: '#030712',
-    900: '#0f172a',
-    800: '#1e293b',
-    700: '#334155',
+    950: tokens.racSlate900 || '#030712',
+    900: tokens.racSlate900 || '#0f172a',
+    800: tokens.racSlate800 || '#1e293b',
+    700: tokens.racSlate700 || '#334155',
   },
 } as const;
 

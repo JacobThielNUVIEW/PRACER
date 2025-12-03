@@ -5,7 +5,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Official NeverStop Palette (mapped to design tokens via CSS variables)
+        // RACELAY Palette
+        rac: {
+          depth: 'var(--rac-depth, #0B0C10)',
+          surface: 'var(--rac-surface, #13151A)',
+          border: 'var(--rac-border, #272A33)',
+          blue: 'var(--rac-blue, #0EA5E9)',
+          blueGlow: 'var(--rac-blue-glow, rgba(14,165,233,0.2))',
+          signal: 'var(--rac-signal, #F97316)',
+          text: 'var(--rac-text-main, #F1F5F9)',
+          muted: 'var(--rac-text-muted, #94A3B8)',
+        },
+        // Legacy palette kept for backwards compatibility
         slate: {
           50: "#f8fafc",
           900: "#0f172a",
@@ -45,7 +56,18 @@ module.exports = {
           600: 'var(--btn-strava-hover, #FF6B2B)',
           DEFAULT: 'var(--strava-orange, #FC4C02)'
         },
+        partner: {
+          strava: 'var(--brand-strava, #FC4C02)',
+          garmin: 'var(--brand-garmin, #00A3E0)',
+          apple: 'var(--brand-apple, #34C759)',
+          nike: 'var(--brand-nike, #E11931)',
+        },
         orange: 'var(--rac-orange, #f97316)'
+      },
+      fontFamily: {
+        hud: ['Chakra Petch', 'sans-serif'],
+        data: ['JetBrains Mono', 'monospace'],
+        body: ['Inter', 'sans-serif'],
       },
       animation: {
         'pulse-gold': 'pulse-gold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',

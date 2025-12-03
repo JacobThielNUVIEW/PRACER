@@ -35,7 +35,7 @@ export default function ActivityHeatmap({ scores = [] }: { scores?: Score[] }) {
         {days.map((day) => {
           const s = scoresMap.get(day);
           const value = s ? (s.score ?? (s as any).value ?? 1) : 0;
-          const cls = value > 0 ? 'bg-gold-500' : 'bg-slate-800/50';
+          const cls = value > 0 ? 'bg-rac-signal' : 'bg-slate-800/50';
           return (
             <div
               key={day}
