@@ -26,10 +26,11 @@ async function main() {
 
   try {
     // 1) Get user by email via Supabase Admin endpoint
-    const listRes = await fetch(`${SUPABASE_URL}/auth/v1/admin/users?email=${encodeURIComponent(email)}`, {
+  const listRes = await fetch(`${SUPABASE_URL}/auth/v1/admin/users?email=${encodeURIComponent(email)}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+    'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
         'Content-Type': 'application/json'
       }
     });
@@ -50,10 +51,11 @@ async function main() {
     console.log('Found user:', userId);
 
     // 2) Delete user via Supabase Admin endpoint
-    const deleteRes = await fetch(`${SUPABASE_URL}/auth/v1/admin/users/${userId}`, {
+  const deleteRes = await fetch(`${SUPABASE_URL}/auth/v1/admin/users/${userId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+    'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
         'Content-Type': 'application/json'
       }
     });

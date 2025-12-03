@@ -84,7 +84,7 @@ export default function DebugPage() {
         <div className="flex gap-4">
           <a
             href="/"
-            className="px-4 py-2 bg-gold text-slate-900 rounded font-bold hover:opacity-90"
+            className="px-4 py-2 bg-gold-500 text-slate-900 rounded font-bold hover:opacity-90"
           >
             Home
           </a>

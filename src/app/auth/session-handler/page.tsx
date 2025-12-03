@@ -98,8 +98,8 @@ export default function SessionHandler() {
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-b from-slate-950 to-slate-900">
       <div className="text-center space-y-4">
-        <div className="w-12 h-12 border-4 border-gold/30 border-t-gold rounded-full animate-spin mx-auto"></div>
-        <p className="text-gold animate-pulse text-lg font-semibold">{status}</p>
+  <div className="w-12 h-12 border-4 border-gold-500/30 border-t-gold-500 rounded-full animate-spin mx-auto"></div>
+  <p className="text-gold-500 animate-pulse text-lg font-semibold">{status}</p>
         <p className="text-slate-400 text-sm">This should only take a few seconds...</p>
         {debugInfo && <p className="text-slate-500 text-xs mt-4">{debugInfo}</p>}
       </div>

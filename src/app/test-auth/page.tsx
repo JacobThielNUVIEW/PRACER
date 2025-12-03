@@ -56,8 +56,8 @@ export default function TestAuthPage() {
 
       <div className="space-y-6 max-w-2xl">
         {hash && (
-          <div className="bg-slate-800 p-6 rounded-lg border border-gold">
-            <h2 className="text-xl font-bold text-gold mb-2">✓ URL Hash Detected</h2>
+            <div className="bg-slate-800 p-6 rounded-lg border border-gold-500">
+              <h2 className="text-xl font-bold text-gold-500 mb-2">✓ URL Hash Detected</h2>
             <p className="text-xs text-slate-300 break-all">{hash.substring(0, 100)}...</p>
             {hash.includes('access_token') && (
               <p className="text-sm text-green-400 mt-2">✓ Contains access_token</p>
@@ -93,7 +93,7 @@ export default function TestAuthPage() {
         </div>
 
         <div className="flex gap-4">
-          <a href="/" className="px-4 py-2 bg-gold text-slate-900 rounded font-bold">
+          <a href="/" className="px-4 py-2 bg-gold-500 text-slate-900 rounded font-bold">
             Home
           </a>
           <a href="/auth" className="px-4 py-2 bg-slate-700 text-white rounded font-bold">

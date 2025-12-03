@@ -10,6 +10,10 @@ export const colors = {
   racWhite: '#F0F0F0',
   racGrayLight: '#A0A0A0',
   racOrange: '#FC4C02',
+  gold400: '#fbbf24',
+  gold500: '#f59e0b',
+  gold600: '#d97706',
+  gold: '#f59e0b',
 
   stravaOrange: '#FC4C02',
   stravaDark: '#111111',
@@ -46,6 +50,10 @@ export const colors = {
   chartSecondary: '#3DA5F5',
   chartAccent: '#66B3FF',
   chartBg: '#0E0E0E',
+  silver400: '#e5e7eb',
+  silver500: '#cfd8dc',
+  silver600: '#b0b6be',
+  silver: '#cfd8dc',
 
   glowBlue: 'rgba(62,165,245,0.2)',
 } as const;

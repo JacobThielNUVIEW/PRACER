@@ -56,7 +56,7 @@ export default function SetupPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 flex items-center justify-center px-4">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-black bg-gradient-to-r from-gold to-orange bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-black bg-gradient-to-r from-gold-500 to-orange bg-clip-text text-transparent mb-2">
             NeverStop Setup
           </h1>
           <p className="text-slate-300">Create admin account for testing</p>
@@ -75,7 +75,7 @@ export default function SetupPage() {
     <button
             onClick={createAdminAccount}
             disabled={loading}
-            className="w-full bg-gradient-to-r from-gold to-orange text-slate-900 px-6 py-3 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-gold-500 to-orange text-slate-900 px-6 py-3 rounded-lg font-bold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Creating...' : 'Create Admin Account'}
           </button>

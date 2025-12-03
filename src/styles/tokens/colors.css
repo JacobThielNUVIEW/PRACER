@@ -1,11 +1,99 @@
-/* Color tokens as CSS variables: import this file at the top-level (e.g., globals.css) to use tokens in CSS */
+/* =======================================
+   RACELAY Brand & Partner Color Schema
+   Master Theme File for Dashboard
+   ======================================= */
+
+/* --- 1. RACELAY Base / Background --- */
 :root {
-  --color-primary: #0070f3;
-  --color-primary-600: #0366d6;
-  --color-secondary: #7928CA;
-  --color-background: #ffffff;
-  --color-surface: #f6f6f6;
-  --color-success: #21ba45;
-  --color-warning: #f5a623;
-  --color-danger: #e00;
+  --rac-slate-900: #0E0E0E; /* Deepest background */
+  --rac-slate-800: #161616; /* Cards, sidebar, panels */
+  --rac-slate-700: #262626; /* Borders, input outlines */
+  --rac-slate-600: #333333; /* Hover / interactive highlights */
+
+  /* --- Main Accent Colors --- */
+  --rac-blue: #3DA5F5;       /* Primary buttons / highlights */
+  --rac-blue-light: #66B3FF; /* Hover / active states */
+  --rac-white: #F0F0F0;      /* Body text / neutral */
+  --rac-gray-light: #A0A0A0; /* Secondary text */
+  --rac-orange: #FC4C02;     /* Activity highlight / Strava accent */
+}
+
+/* --- Legacy Gold & Silver (used by tailwind classes 'gold' / 'silver') --- */
+:root {
+  --gold-400: #fbbf24; /* alt / light */
+  --gold-500: #f59e0b; /* main gold */
+  --gold-600: #d97706; /* dark */
+  --gold: var(--gold-500);
+
+  --silver-400: #e5e7eb; /* light */
+  --silver-500: #cfd8dc; /* main */
+  --silver-600: #b0b6be; /* dark */
+  --silver: var(--silver-500);
+}
+
+/* --- 2. Partner & TM Colors --- */
+
+/* Strava */
+:root {
+  --strava-orange: #FC4C02;  /* Main Brand Color */
+  --strava-dark: #111111;    /* Dark Background / icon backing */
+  --strava-gray: #999999;    /* Text / secondary use */
+}
+
+/* Apple Fitness */
+:root {
+  --apple-green: #34C759; /* Success / completed activity */
+  --apple-gray: #E5E5EA;  /* Neutral / secondary */
+}
+
+/* Garmin */
+:root {
+  --garmin-blue: #00A3E0;  /* Garmin brand blue */
+  --garmin-gray: #5A5A5A;  /* Secondary gray / text */
+}
+
+/* Nike */
+:root {
+  --nike-red: #FF0000;
+  --nike-gray: #333333;
+}
+
+/* --- 3. Typography Colors --- */
+:root {
+  --text-primary: var(--rac-white);         /* Main text */
+  --text-secondary: var(--rac-gray-light);  /* Secondary / muted text */
+  --text-accent: var(--rac-blue);           /* Interactive / links */
+  --text-accent-alt: var(--rac-orange);     /* Activity / highlight */
+}
+
+/* --- 4. Buttons & Interactive States --- */
+:root {
+  --btn-primary-bg: var(--rac-blue);
+  --btn-primary-hover: var(--rac-blue-light);
+  --btn-secondary-bg: var(--rac-slate-700);
+  --btn-secondary-hover: var(--rac-slate-600);
+  --btn-strava-bg: var(--strava-orange);
+  --btn-strava-hover: #FF6B2B;
+  --btn-disabled: #444444;
+}
+
+/* --- 5. Sidebar & Navigation --- */
+:root {
+  --nav-bg: var(--rac-slate-800);
+  --nav-border: var(--rac-slate-700);
+  --nav-item-active-border: var(--rac-orange);
+  --nav-item-hover-bg: var(--rac-slate-700);
+}
+
+/* --- 6. Charts & Graphs --- */
+:root {
+  --chart-primary: var(--rac-orange);
+  --chart-secondary: var(--rac-blue);
+  --chart-accent: var(--rac-blue-light);
+  --chart-bg: var(--rac-slate-900);
+}
+
+/* --- 7. Glow / Effects --- */
+:root {
+  --glow-blue: rgba(62,165,245,0.2); /* Subtle tech highlights */
 }

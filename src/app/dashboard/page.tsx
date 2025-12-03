@@ -17,28 +17,15 @@ function getWeek(date: Date) {
 
 // --- Logo SVG ---
 const Logo = ({ className = "w-full h-full" }) => (
-  <svg viewBox="0 0 100 100" className={`${className} drop-shadow-2xl`}>
-    <circle cx="50" cy="50" r="45" fill="#f59e0b" opacity="0.15"/>
-    <path d="M50 15 L65 35 L50 55 L35 35 Z" fill="#f59e0b" className="animate-pulse origin-center"/>
-    <circle cx="50" cy="35" r="8" fill="#f59e0b"/>
+  <svg viewBox="0 0 100 100" className={`${className} drop-shadow-2xl text-gold-500`}>
+    <circle cx="50" cy="50" r="45" fill="currentColor" opacity="0.15"/>
+    <path d="M50 15 L65 35 L50 55 L35 35 Z" fill="currentColor" className="animate-pulse origin-center"/>
+    <circle cx="50" cy="35" r="8" fill="currentColor"/>
   </svg>
 );
 
 // --- Custom Styles ---
-const CustomStyles = () => (
-  <style>{`
-    .text-gold { color: #fbbf24; }
-    .bg-gold { background-color: #fbbf24; }
-    .border-gold { border-color: #fbbf24; }
-    @keyframes pulse-gold {
-      0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(251, 191, 36, 0.5); }
-      50% { opacity: .7; text-shadow: 0 0 5px rgba(251, 191, 36, 0.2); }
-    }
-    .animate-pulse-gold {
-      animation: pulse-gold 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-  `}</style>
-);
+// Custom token-based styles handled via tailwind config and css variables.
 
 export default function Dashboard() {
   const [user, setUser] = useState<any>(null);
@@ -103,29 +90,27 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <CustomStyles />
-        <div className="text-6xl font-black text-gold animate-pulse-gold tracking-tight">NeverStop</div>
+        <div className="text-6xl font-black text-gold-500 animate-pulse-gold tracking-tight">NeverStop</div>
       </div>
     );
   }
 
   if (!profile?.strava_athlete_id) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-8 text-white">
-        <CustomStyles />
+  <div className="min-h-screen bg-slate-950 flex items-center justify-center p-8 text-white">
         <div className="max-w-lg w-full bg-slate-900/90 backdrop-blur-2xl rounded-3xl p-12 text-center space-y-10 border border-slate-800 shadow-2xl">
           {/* Logo + Title */}
           <div className="space-y-4">
             <div className="mx-auto w-24 h-24">
               <Logo />
             </div>
-            <h1 className="text-6xl font-black text-gold animate-pulse-gold tracking-tight">NeverStop</h1>
+            <h1 className="text-6xl font-black text-gold-500 animate-pulse-gold tracking-tight">NeverStop</h1>
           </div>
           <p className="text-xl text-slate-300 font-light">Connect your Strava to unlock adaptive training and visualize your progress.</p>
           <button
             onClick={handleConnectStrava}
             disabled={connecting}
-            className="group relative w-full flex items-center justify-center gap-3 px-8 py-4 bg-[#FC4C02] hover:bg-[#E34402] disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl font-bold transition-all duration-200 shadow-lg hover:shadow-[#FC4C02]/20"
+            className="group relative w-full flex items-center justify-center gap-3 px-8 py-4 bg-strava-500 hover:bg-strava-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl font-bold transition-all duration-200 shadow-lg hover:shadow-[var(--strava-orange)/0.2]"
           >
             {connecting ? (
               <span className="animate-pulse">Connecting to Strava...</span>
@@ -145,10 +130,10 @@ export default function Dashboard() {
 
   // Dashboard Screen
   return (
-    <div
-      className="min-h-screen font-sans selection:bg-gold selection:text-black backdrop-blur-md relative overflow-hidden"
+  <div
+  className="min-h-screen font-sans selection:bg-gold-500 selection:text-black backdrop-blur-md relative overflow-hidden"
       style={{
-        background: 'linear-gradient(135deg, #0a0f19 0%, #111827 60%, #020617 100%)',
+    background: `linear-gradient(135deg, var(--rac-slate-900) 0%, var(--rac-slate-800) 60%, var(--rac-slate-700) 100%)`,
       }}
     >
       {/* SVG Tech Line Background */}
@@ -160,7 +145,7 @@ export default function Dashboard() {
       />
       {/* Main dashboard content */}
   <div className="relative z-10">
-      <CustomStyles />
+  {/* Custom token classes available via Tailwind & CSS variables */}
       {/* Header */}
       <header className="border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -168,7 +153,7 @@ export default function Dashboard() {
             <div className="w-10 h-10 transition-transform duration-500 group-hover:rotate-180">
               <Logo />
             </div>
-            <h1 className="text-2xl font-black text-gold tracking-tighter">NeverStop</h1>
+            <h1 className="text-2xl font-black text-gold-500 tracking-tighter">NeverStop</h1>
           </div>
           <button
             onClick={handleSignOut}
@@ -188,7 +173,7 @@ export default function Dashboard() {
             </h2>
           </div>
           <p className="text-2xl text-silver-500 font-medium uppercase tracking-widest">Current VDOT</p>
-          <div className={`inline-block px-8 py-3 ${profile.is_premium ? 'bg-gradient-to-r from-black to-gold-500 text-gold-500' : 'bg-black text-silver-400'} rounded-full font-bold text-sm tracking-wider uppercase shadow-lg border-r-8 border-gold-500`}>
+            <div className={`inline-block px-8 py-3 ${profile.is_premium ? 'bg-gradient-to-r from-black to-gold-500 text-gold-500' : 'bg-black text-silver-400'} rounded-full font-bold text-sm tracking-wider uppercase shadow-lg border-r-8 border-gold-500`}>
             {profile.is_premium ? 'Premium Member' : 'Free Tier'}
           </div>
         </div>
@@ -229,10 +214,10 @@ export default function Dashboard() {
             {activities.map((act: any) => (
               <div
                 key={act.id}
-                className="group relative bg-slate-900/40 backdrop-blur-md rounded-2xl p-6 border border-slate-800/50 hover:border-gold/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-900/10 cursor-default overflow-hidden"
+                className="group relative bg-slate-900/40 backdrop-blur-md rounded-2xl p-6 border border-slate-800/50 hover:border-gold-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-900/10 cursor-default overflow-hidden"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    <svg className="w-5 h-5 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </div>
 
                 <div className="flex justify-between items-start mb-4">

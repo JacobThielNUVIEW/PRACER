@@ -11,13 +11,13 @@ export default function AuthCodeError() {
         <div className="space-y-3">
           <a
             href="/auth"
-            className="block px-6 py-3 bg-[#FC5200] hover:bg-orange-600 text-white rounded-lg font-bold transition"
+            className="block px-6 py-3 bg-strava-500 hover:bg-strava-600 text-white rounded-lg font-bold transition"
           >
             Try Again
           </a>
           <a
             href="/"
-            className="block px-6 py-3 border border-gold text-gold hover:bg-gold/10 rounded-lg font-bold transition"
+            className="block px-6 py-3 border border-gold-500 text-gold-500 hover:bg-gold-500/10 rounded-lg font-bold transition"
           >
             Back Home
           </a>
