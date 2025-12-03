@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Prevent staging/committing .env-like files
+staged_envs=$(git diff --name-only --cached -- "*.env" ".env*" || true)
+staged_envs=$(echo "$staged_envs" | grep -v "^\.env.example$" || true)
+if [ -n "$staged_envs" ]; then
+  echo "ERROR: You are trying to commit env-like files. Please remove them from the staged set:"
+  echo "$staged_envs"
+  echo "Unstage via: git reset <file>  or remove from index: git rm --cached <file>"
+  exit 1
+fi
+
+exit 0
