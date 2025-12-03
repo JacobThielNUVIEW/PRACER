@@ -1,23 +1,28 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 
 export default function AuthHandler() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const [codeParam, setCodeParam] = useState<string | null>(null);
   const supabase = createClient();
   const [status, setStatus] = useState('Finalizing login...');
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const code = searchParams.get('code');
-    
-    console.log('🔍 Handler page loaded');
-    console.log('Code from URL:', code);
-    
-    if (!code) {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      setCodeParam(code);
+      console.log('🔍 Handler page loaded');
+      console.log('Code from URL:', code);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!codeParam) {
       console.log('❌ No code - this handler only supports PKCE flow');
       setTimeout(() => router.push('/auth'), 2000);
       return;
@@ -25,11 +30,11 @@ export default function AuthHandler() {
 
     const handleAuth = async () => {
       try {
-        console.log('🔐 Starting PKCE code exchange on client...');
+    console.log('🔐 Starting PKCE code exchange on client...');
         setStatus('Exchanging authorization code...');
 
         // Exchange the code for a session
-        const { error: exchangeError, data } = await supabase.auth.exchangeCodeForSession(code);
+  const { error: exchangeError, data } = await supabase.auth.exchangeCodeForSession(codeParam ?? '');
 
         console.log('Exchange response:', { 
           hasError: !!exchangeError, 
@@ -83,7 +88,7 @@ export default function AuthHandler() {
     };
 
     handleAuth();
-  }, [searchParams, router, supabase]);
+  }, [codeParam, router, supabase]);
 
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-b from-slate-950 to-slate-900">

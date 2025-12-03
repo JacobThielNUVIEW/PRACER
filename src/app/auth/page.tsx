@@ -2,13 +2,14 @@
 'use client';
 
 import { createClient } from '@/lib/supabase/client';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { useState, useEffect } from 'react';
 
 export default function AuthPage() {
   const supabase = createClient();
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const [errorParam, setErrorParam] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
@@ -17,11 +18,12 @@ export default function AuthPage() {
 
   // Check for errors from callback
   useEffect(() => {
-    const errorParam = searchParams.get('error');
-    if (errorParam) {
-      setError(decodeURIComponent(errorParam));
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const err = params.get('error');
+      if (err) setError(decodeURIComponent(err));
     }
-  }, [searchParams]);
+  }, []);
 
   const signInWithGoogle = async () => {
     setLoading(true);
