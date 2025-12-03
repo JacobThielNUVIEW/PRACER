@@ -16,8 +16,15 @@ export async function GET(request: Request) {
 
   // If there's an error from OAuth provider
   if (error) {
+    // Sanitize error strings before redirecting to avoid embedding
+    // complex JS error objects that can break client-side parsing.
+    const raw = error_description || error || ''
+    const safe = String(raw)
+      .replace(/\s+/g, ' ') // collapse whitespace/newlines
+      .replace(/[\u0000-\u001f\u007f-\u009f]/g, '') // remove control chars
+      .slice(0, 200)
     console.error('❌ OAuth error:', error, error_description)
-    return NextResponse.redirect(`${requestUrl.origin}/auth?error=${encodeURIComponent(error_description || error)}`)
+    return NextResponse.redirect(`${requestUrl.origin}/auth?error=${encodeURIComponent(safe)}`)
   }
 
   // If we have a code, exchange it for a session
@@ -71,8 +78,10 @@ export async function GET(request: Request) {
         return NextResponse.redirect(`${requestUrl.origin}/dashboard`)
       }
     } catch (err: any) {
+      const raw = err?.message ?? String(err ?? '')
+      const safe = String(raw).replace(/\s+/g, ' ').replace(/[\u0000-\u001f\u007f-\u009f]/g, '').slice(0, 200)
       console.error('❌ Callback error:', err)
-      return NextResponse.redirect(`${requestUrl.origin}/auth?error=${encodeURIComponent(err.message)}`)
+      return NextResponse.redirect(`${requestUrl.origin}/auth?error=${encodeURIComponent(safe)}`)
     }
   }
 
