@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Prevent pushing if .env.local is tracked in git
+if git ls-files --error-unmatch .env.local > /dev/null 2>&1; then
+  echo "ERROR: .env.local is tracked by git. Remove it from the index (git rm --cached .env.local) before pushing to avoid leaking secrets."
+  exit 1
+fi
+
+exit 0
