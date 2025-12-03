@@ -5,16 +5,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // RACELAY Palette
+        // RACELAY Palette (canonical mapping)
         rac: {
-          depth: 'var(--rac-depth, #0B0C10)',
+          depth:   'var(--rac-depth, #0B0C10)',
           surface: 'var(--rac-surface, #13151A)',
-          border: 'var(--rac-border, #272A33)',
-          blue: 'var(--rac-blue, #0EA5E9)',
-          blueGlow: 'var(--rac-blue-glow, rgba(14,165,233,0.2))',
-          signal: 'var(--rac-signal, #F97316)',
-          text: 'var(--rac-text-main, #F1F5F9)',
-          muted: 'var(--rac-text-muted, #94A3B8)',
+          border:  'var(--rac-border, #272A33)',
+          blue:    'var(--rac-blue, #0EA5E9)',
+          'blue-dark': 'var(--rac-blue-dark, #0284C7)',
+          glow:    'var(--rac-blue-glow, rgba(14,165,233,0.2))',
+          signal:  'var(--rac-signal, #F97316)',
+          success: 'var(--rac-success, #10B981)',
+          warning: 'var(--rac-warning, #FACC15)',
+          danger:  'var(--rac-danger, #EF4444)',
+          text:    'var(--rac-text-main, #F1F5F9)',
+          muted:   'var(--rac-text-muted, #94A3B8)',
         },
         // Legacy palette kept for backwards compatibility
         slate: {
