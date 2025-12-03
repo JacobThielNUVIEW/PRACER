@@ -3,6 +3,13 @@ import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
+  // Server-side guard: require an admin creation token to prevent public abuse
+  const adminTokenEnv = process.env.ADMIN_CREATE_TOKEN;
+  const providedToken = request.headers.get('x-admin-token');
+  if (!adminTokenEnv || providedToken !== adminTokenEnv) {
+    console.warn('Unauthorized attempt to create admin account');
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
   try {
     const { email, password } = await request.json()
 

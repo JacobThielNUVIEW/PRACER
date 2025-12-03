@@ -1,7 +1,6 @@
 // Top-level: Strava activity sync function for clean structure and lint compliance
 async function syncStravaActivities(supabase: any, userId: string, accessToken: string, maxRetries = 3) {
-  console.log('[DEBUG] Starting Strava sync for user:', userId);
-  console.log('[DEBUG] Using accessToken:', accessToken);
+  console.log('[INFO] Starting Strava sync for user:', userId);
   for (let retry = 0; retry < maxRetries; retry++) {
     try {
       if (retry > 0) await new Promise(resolve => setTimeout(resolve, 2 ** retry * 1000));
@@ -10,7 +9,7 @@ async function syncStravaActivities(supabase: any, userId: string, accessToken: 
         headers: { Authorization: `Bearer ${accessToken}` }
       });
       const activities = await response.json();
-      console.log('[DEBUG] Strava activities response:', activities);
+  console.log('[INFO] Strava activities response count:', Array.isArray(activities) ? activities.length : 'not-an-array');
       if (!Array.isArray(activities)) throw new Error('Strava activities fetch failed');
       const recentActivities = activities
         .map(act => ({
@@ -22,14 +21,14 @@ async function syncStravaActivities(supabase: any, userId: string, accessToken: 
           distance: act.distance,
           // Add other fields as needed
         }));
-      console.log('[DEBUG] Prepared activities for upsert:', recentActivities);
+  console.log('[INFO] Prepared activities for upsert (count):', recentActivities.length);
       const { error } = await supabase
         .from('activities')
         .upsert(recentActivities, { onConflict: 'strava_activity_id' });
       if (error) {
         console.error('[DEBUG] Upsert error:', error);
       } else {
-        console.log('[DEBUG] Upsert success for user:', userId);
+  console.log('[INFO] Upsert success for user:', userId);
         return;
       }
     } catch (err) {
@@ -84,12 +83,7 @@ export async function GET(request: NextRequest) {
       return new Response('Failed to get access token from Strava', { status: 400 });
     }
 
-  // DEBUG: Log all relevant environment tokens
-  console.log('[DEBUG] STRAVA_CLIENT_ID:', process.env.STRAVA_CLIENT_ID);
-  console.log('[DEBUG] STRAVA_CLIENT_SECRET:', process.env.STRAVA_CLIENT_SECRET);
-  console.log('[DEBUG] NEXT_PUBLIC_SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
-  console.log('[DEBUG] NEXT_PUBLIC_SUPABASE_ANON_KEY:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-  console.log('[DEBUG] NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL);
+  // Removed detailed debug logging to avoid leaking secrets into logs
   // 3. Save Strava tokens to the profiles table
     const { error: profileError } = await supabase
       .from('profiles')
@@ -108,7 +102,7 @@ export async function GET(request: NextRequest) {
 
   // 4. Sync Strava activities with retry and idempotent upsert
   await syncStravaActivities(supabase, user.id, tokens.access_token);
-  console.log('[DEBUG] Finished Strava sync for user:', user.id);
+  console.log('[INFO] Finished Strava sync for user:', user.id);
 
     console.log('✅ Strava linked and activities synced for user:', user.id);
 
