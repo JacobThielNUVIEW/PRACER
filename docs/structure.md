@@ -20,7 +20,7 @@ racelay-dashboard/
 public/
 └─ logos/
    ├─ racelay-logo.svg
-   ├─ racelay-logo.svg (was neverstop-logo.svg)
+   ├─ racelay-logo.svg
    ├─ strava-logo.svg
    ├─ garmin-logo.svg
    ├─ apple-logo.svg

@@ -38,7 +38,7 @@ if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
   echo "Aborted by user."; exit 0
 fi
 
-DEST="$TARGET_MOUNT/neverstop-app-backup-$(date -u +%Y%m%dT%H%M%SZ)"
+DEST="$TARGET_MOUNT/racelay-backup-$(date -u +%Y%m%dT%H%M%SZ)"
 mkdir -p "$DEST"
 
 echo "Starting rsync..."

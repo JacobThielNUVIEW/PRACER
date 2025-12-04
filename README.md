@@ -42,5 +42,5 @@ Run the scripts from the repo root, e.g.:
 
 ```zsh
 ./scripts/sanitize_env_for_github.sh
-./scripts/hard_clone_to_path.sh /Volumes/MyBackup/neverstop-app
+./scripts/hard_clone_to_path.sh /Volumes/MyBackup/racelay
 ```

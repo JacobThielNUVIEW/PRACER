@@ -1,6 +1,6 @@
 # Development setup and cross-machine workflow
 
-This document explains how to work on the `neverstop-app` across multiple machines (home PC, work laptop, etc.) while keeping local envs secure, synced, and ensuring you work on the latest code.
+This document explains how to work on the `racelay` across multiple machines (home PC, work laptop, etc.) while keeping local envs secure, synced, and ensuring you work on the latest code.
 
 ## Goals
 - Quick local bootstrapping for new machines
@@ -16,8 +16,8 @@ This document explains how to work on the `neverstop-app` across multiple machin
 ## Quick start (new machine)
 1. Clone the repo:
    ```bash
-   git clone git@github.com:JacobThielNUVIEW/neverstop-app.git
-   cd neverstop-app
+   git clone git@github.com:JacobThielNUVIEW/racelay.git
+   cd racelay
    ```
 2. Run the setup helper (creates `.env.local` from `.env.example`):
    ```bash

@@ -7,7 +7,7 @@
     <key>ProgramArguments</key>
     <array>
       <string>/bin/bash</string>
-      <string>/Users/JThiel/neverstop-app/scripts/full_backup.sh</string>
+      <string>/Users/JThiel/racelay/scripts/full_backup.sh</string>
     </array>
     <key>StartCalendarInterval</key>
     <dict>
