@@ -80,7 +80,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-rac-depth flex items-center justify-center">
+      <div className="min-h-screen bg-rac-depth flex items-center justify-center" style={{ color: 'var(--text-primary)' }}>
         <div className="text-6xl font-hud font-extrabold text-rac-signal animate-pulse tracking-tight">RACELAY</div>
       </div>
     );
@@ -88,15 +88,15 @@ export default function Dashboard() {
 
   if (!profile?.strava_athlete_id) {
     return (
-      <div className="min-h-screen bg-rac-depth flex items-center justify-center p-8 text-rac-text-main">
-        <div className="max-w-lg w-full bg-rac-surface/90 backdrop-blur-2xl rounded-3xl p-12 text-center space-y-10 border border-rac-border shadow-2xl">
+      <div className="min-h-screen bg-rac-depth flex items-center justify-center p-8" style={{ color: 'var(--text-primary)' }}>
+        <div className="max-w-lg w-full bg-[color:var(--surface)]/90 backdrop-blur-2xl rounded-3xl p-12 text-center space-y-10 border border-[color:var(--border)] shadow-2xl">
           <div className="space-y-4">
             <div className="mx-auto w-24 h-24">
               <PartnerLogo brand="strava" size={96} />
             </div>
             <h1 className="text-5xl font-hud font-extrabold text-rac-signal tracking-tight">RACELAY</h1>
           </div>
-          <p className="text-lg text-rac-text-muted font-light">Connect your Strava to unlock adaptive training and visualize your progress.</p>
+          <p className="text-lg text-[var(--text-secondary)] font-light">Connect your Strava to unlock adaptive training and visualize your progress.</p>
           <PrimaryButton onClick={handleConnectStrava} disabled={connecting} className="w-full">
             {connecting ? 'Connecting…' : 'Connect with Strava'}
           </PrimaryButton>
@@ -106,7 +106,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen font-sans selection:bg-rac-signal selection:text-black backdrop-blur-md relative overflow-hidden" style={{ background: `linear-gradient(135deg, var(--rac-slate-900) 0%, var(--rac-slate-800) 60%, var(--rac-slate-700) 100%)` }}>
+    <div className="dashboard-root min-h-screen font-sans selection:bg-rac-signal selection:text-black backdrop-blur-md relative overflow-hidden" style={{ background: `linear-gradient(135deg, var(--rac-slate-900) 0%, var(--rac-slate-800) 60%, var(--rac-slate-700) 100%)` }}>
       <PartnerLogo src="/assets/tech-lines-bg.svg" alt="Tech lines background" className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none z-0" size="100%" contain={false} />
       <div className="relative z-10">
         <header className="border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50 transition-all duration-300">
@@ -121,12 +121,12 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <div className="max-w-7xl mx-auto p-6 md:p-12 space-y-16">
+            <div className="max-w-7xl mx-auto p-6 md:p-12 space-y-16">
           <div className="text-center space-y-6">
             <div className="relative inline-block">
               <h2 className="text-7xl md:text-9xl font-black text-rac-signal animate-pulse-gold tracking-tighter drop-shadow-lg">{profile.vdot_current?.toFixed(1) || '--'}</h2>
             </div>
-            <p className="text-2xl text-rac-text-muted font-medium uppercase tracking-widest">Current VDOT</p>
+            <p className="text-2xl text-[var(--text-secondary)] font-medium uppercase tracking-widest">Current VDOT</p>
             <div className={`inline-block px-8 py-3 ${profile.is_premium ? 'bg-gradient-to-r from-black to-[var(--rac-signal)] text-rac-signal' : 'bg-black text-[var(--silver-400)]'} rounded-full font-bold text-sm tracking-wider uppercase shadow-lg border-r-8 border-rac-signal`}>{profile.is_premium ? 'Premium Member' : 'Free Tier'}</div>
           </div>
 

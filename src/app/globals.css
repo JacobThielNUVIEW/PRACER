@@ -67,15 +67,15 @@
 }
 
 /* keep existing auth utilities for layout */
-.auth-container { min-height: 100vh; display:flex; align-items:center; justify-content:center; padding:2rem; background-color:var(--rac-slate-900); color:var(--text-primary); }
-.auth-card { width:100%; max-width:520px; background:var(--rac-slate-800); border:1px solid var(--rac-slate-700); border-radius:8px; padding:2rem; box-shadow:0 8px 24px rgba(0,0,0,0.6); transition:transform .18s ease, box-shadow .18s ease; overflow:hidden; }
+.auth-container { min-height: 100vh; display:flex; align-items:center; justify-content:center; padding:2rem; background-color:var(--background); color:var(--text-primary); }
+.auth-card { width:100%; max-width:520px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:2rem; box-shadow:0 8px 24px rgba(0,0,0,0.6); transition:transform .18s ease, box-shadow .18s ease; overflow:hidden; }
 .auth-card:hover { transform:translateY(-3px); box-shadow:0 12px 36px rgba(0,0,0,0.7); }
 .auth-header { display:flex; gap:1rem; align-items:center; margin-bottom:1.25rem; }
 .auth-title { font-family:'Rajdhani', sans-serif; font-weight:700; font-size:1.75rem; letter-spacing:.06em; color:var(--text-primary); margin:0; }
 .auth-sub { margin:0; font-size:.75rem; color:var(--text-secondary); font-family:'Titillium Web', sans-serif; text-transform:uppercase; letter-spacing:.12em; }
 .input { width:100%; padding:.65rem .75rem; border-radius:4px; border:1px solid var(--rac-slate-700); background:var(--rac-slate-800); color:var(--text-primary); outline:none; }
 .input:focus { box-shadow:0 0 0 4px rgba(62,165,245,0.06); border-color:var(--rac-blue); }
-.btn-primary { background:var(--btn-primary-bg); color:white; padding:.65rem 1rem; border-radius:4px; font-weight:700; letter-spacing:.06em; }
+.btn-primary { background:var(--btn-primary-bg, var(--rac-signal)); color:var(--text-primary); padding:.65rem 1rem; border-radius:4px; font-weight:700; letter-spacing:.06em; }
 .btn-primary:focus, .input:focus { outline: 3px solid rgba(62,165,245,0.12); outline-offset: 2px; }
 .btn-strava { background:var(--btn-strava-bg); color:white; padding:.65rem 1rem; border-radius:4px; font-weight:700; }
 
@@ -101,4 +101,9 @@
   width: 100% !important;
   height: 100% !important;
 }
+
+/* Dashboard scoped helpers */
+.dashboard-root { color: var(--text-primary); }
+.dashboard-root a { color: var(--rac-signal); }
+.dashboard-root .muted { color: var(--text-secondary); }
 

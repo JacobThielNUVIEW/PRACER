@@ -3,7 +3,8 @@
 
 ## Prevent pushing if any .env files are tracked in git.
 # This keeps local environment files safe while allowing you to keep them locally.
-tracked_envs=$(git ls-files -- "*.env" ".env*" 2>/dev/null || true)
+# exclude .env.example from the check (it's safe to track)
+tracked_envs=$(git ls-files -- "*.env" ".env*" 2>/dev/null | grep -v '^.env.example$' || true)
 if [ -n "$tracked_envs" ]; then
   echo "ERROR: The following env-like files are tracked by git and may contain secrets:"
   echo "$tracked_envs"

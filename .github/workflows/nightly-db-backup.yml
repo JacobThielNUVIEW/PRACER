@@ -1,0 +1,66 @@
+name: Nightly DB Backup
+
+on:
+  schedule:
+    # Run nightly at 03:00 UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  backup:
+    name: Dump and upload database
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create DB dump
+        run: |
+          set -e
+          sudo apt-get update -y
+          sudo apt-get install -y postgresql-client
+          TIMESTAMP=$(date -u +%Y%m%dT%H%M%SZ)
+          FILENAME="db-backup-$TIMESTAMP.dump"
+          echo "Dumping database to $FILENAME"
+          # pg_dump accepts a libpq connection string in SUPABASE_DB_URL
+          pg_dump "$SUPABASE_DB_URL" -Fc -f "$FILENAME"
+          echo "FILE=$FILENAME" >> $GITHUB_ENV
+
+      - name: Upload backup as GitHub artifact (short-term)
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-backup-${{ env.FILE }}
+          path: ${{ env.FILE }}
+
+      - name: Upload to S3 (optional)
+        if: ${{ secrets.AWS_S3_BUCKET != '' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' }}
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y awscli
+          aws --version
+          TIMESTAMP=$(date -u +%Y%m%dT%H%M%SZ)
+          aws s3 cp "${{ env.FILE }}" "s3://${AWS_S3_BUCKET}/backups/${{ env.FILE }}" --acl private --storage-class STANDARD_IA
+
+      - name: Upload to Supabase Storage (optional)
+        if: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY != '' && secrets.SUPABASE_STORAGE_BUCKET != '' && secrets.SUPABASE_URL != '' }}
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_STORAGE_BUCKET: ${{ secrets.SUPABASE_STORAGE_BUCKET }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        run: |
+          TIMESTAMP=$(date -u +%Y%m%dT%H%M%SZ)
+          FILE=${{ env.FILE }}
+          echo "Uploading $FILE to Supabase Storage bucket $SUPABASE_STORAGE_BUCKET"
+          curl -s -X POST "${SUPABASE_URL%/}/storage/v1/object/${SUPABASE_STORAGE_BUCKET}/${FILE}?upsert=true" \
+            -H "Authorization: Bearer ${SUPABASE_SERVICE_ROLE_KEY}" \
+            -F "file=@${FILE};type=application/octet-stream" || true
+
+      - name: Cleanup local file
+        run: |
+          rm -f "${{ env.FILE }}"

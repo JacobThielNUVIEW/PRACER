@@ -29,3 +29,18 @@ Additional props:
 Notes:
 - `size` can be a number (px) or a css size like `"100%"` when used as a background.
 - `PartnerLogo` uses Next.js `Image` under the hood; add external domains to `next.config.js` if needed.
+
+Utility scripts
+---------------
+
+There are helper scripts in `scripts/`:
+
+- `scripts/sanitize_env_for_github.sh` - back up `.env.local` to `env-archive` and produce `.env.public` with REDACTED placeholders suitable for committing.
+- `scripts/hard_clone_to_path.sh` - copy the repo (including `.git`) to an absolute local path. The script excludes `node_modules` and `.env.local` by default.
+
+Run the scripts from the repo root, e.g.:
+
+```zsh
+./scripts/sanitize_env_for_github.sh
+./scripts/hard_clone_to_path.sh /Volumes/MyBackup/neverstop-app
+```

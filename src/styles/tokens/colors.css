@@ -37,4 +37,17 @@
   --border:           var(--rac-border);
   --text-main:        var(--rac-text-main);
   --text-muted:       var(--rac-text-muted);
+
+  /* Additional aliases for older styles and theme linking */
+  --rac-white:        var(--rac-text-main);
+  --text-primary:     var(--rac-text-main);
+  --text-secondary:   var(--rac-text-muted);
+
+  /* Google logo / button tokens (link to theme schema) */
+  --google-blue:  #4285F4;
+  --google-green: #0F9D58;
+  --google-yellow: #F4B400;
+  --google-red:   #DB4437;
+  --google-btn-bg: #FFFFFF;
+  --google-btn-text: #111827;
 }
