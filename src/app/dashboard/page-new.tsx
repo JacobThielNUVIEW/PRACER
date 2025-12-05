@@ -27,7 +27,7 @@ export default function Dashboard() {
 
       const [profRes, actsRes] = await Promise.all([
         supabase.from('profiles').select('*').eq('id', currentUser.id).single(),
-        supabase.from('activities').select('*').eq('user_id', currentUser.id).order('start_date', { ascending: false }).limit(10),
+        supabase.from('activities').select('*, ai_coach_notes, ai_coach_processed_at').eq('user_id', currentUser.id).order('start_date', { ascending: false }).limit(10),
       ]);
 
       setProfile(profRes.data);
@@ -131,6 +131,24 @@ export default function Dashboard() {
                   <p className="text-slate-400 text-sm mt-2">
                     {new Date(act.start_date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
                   </p>
+                  
+                  {act.ai_coach_notes && (
+                    <div className="mt-4 p-4 bg-gold-500/10 border border-gold-500/20 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <svg className="w-4 h-4 text-gold-500" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <span className="text-xs font-bold text-gold-500 uppercase tracking-wider">AI Coach</span>
+                      </div>
+                      <p className="text-sm text-slate-300 italic leading-relaxed">{act.ai_coach_notes}</p>
+                      {act.ai_coach_processed_at && (
+                        <p className="text-xs text-slate-500 mt-2">
+                          Generated {new Date(act.ai_coach_processed_at).toLocaleDateString()}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  
                   <div className="mt-6 flex justify-between items-end">
                     <div>
                           <p className="text-4xl font-black text-gold-500">{act.vdot_generated?.toFixed(1) || '--'}</p>

@@ -43,7 +43,7 @@ export default function Dashboard() {
 
       const { data: acts } = await supabase
         .from('activities')
-        .select('*')
+        .select('*, ai_coach_notes, ai_coach_processed_at')
         .eq('user_id', currentUser.id)
         .order('start_date', { ascending: false })
         .limit(20);
@@ -61,7 +61,7 @@ export default function Dashboard() {
       setProfile(prof);
       const { data: acts } = await supabase
         .from('activities')
-        .select('*')
+        .select('*, ai_coach_notes, ai_coach_processed_at')
         .eq('user_id', user.id)
         .order('start_date', { ascending: false })
         .limit(20);
@@ -159,6 +159,24 @@ export default function Dashboard() {
                   </div>
                   <div className="flex justify-between items-start mb-4"><h3 className="font-bold text-lg truncate text-silver-500 group-hover:text-rac-signal transition-colors pr-8">{act.name}</h3></div>
                   <p className="text-silver-400 text-xs font-mono mb-6 uppercase tracking-wider">{new Date(act.start_date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</p>
+                  
+                  {act.ai_coach_notes && (
+                    <div className="mb-6 p-4 bg-rac-signal/10 border border-rac-signal/20 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <svg className="w-4 h-4 text-rac-signal" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <span className="text-xs font-bold text-rac-signal uppercase tracking-wider">AI Coach</span>
+                      </div>
+                      <p className="text-sm text-silver-300 italic leading-relaxed">{act.ai_coach_notes}</p>
+                      {act.ai_coach_processed_at && (
+                        <p className="text-xs text-silver-500 mt-2">
+                          Generated {new Date(act.ai_coach_processed_at).toLocaleDateString()}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  
                   <div className="flex justify-between items-end border-t border-slate-800/50 pt-4 mt-auto">
                     <div><div className="flex items-baseline gap-1"><p className="text-3xl font-black text-rac-signal group-hover:text-silver-500 transition-colors">{act.vdot_generated?.toFixed(1) || '--'}</p><span className="text-xs text-silver-400 font-bold">VDOT</span></div></div>
                     <div className="text-right"><p className="text-xl font-mono text-silver-500 group-hover:text-rac-signal transition-colors">{(act.distance / 1000).toFixed(2)} <span className="text-sm text-silver-400">km</span></p></div>
