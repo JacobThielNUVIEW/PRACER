@@ -1,12 +1,12 @@
 // src/app/dashboard/settings/page.tsx
-import { createServerClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/server';
 import AiToggle from '@/components/AiToggle';
 import { redirect } from 'next/navigation';
 
 export const revalidate = 0;
 
 export default async function SettingsPage() {
-  const supabase = createServerClient();
+  const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
   
   if (!user) redirect('/auth');
