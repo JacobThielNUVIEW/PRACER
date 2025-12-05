@@ -1,17 +1,17 @@
 /* src/styles/colors.css — RACELAY canonical brand tokens */
 :root {
   /* CORE SURFACES */
-  --rac-depth:        #0B0C10;
+  --rac-depth:        #0A0A0A;  /* Updated to match schema */
   --rac-surface:      #13151A;
   --rac-border:       #272A33;
 
-  /* PRIMARY BRAND */
-  --rac-blue:         #0EA5E9;
-  --rac-blue-dark:    #0284C7;        /* hover / pressed */
-  --rac-blue-glow:    rgba(14,165,233,0.20);
+  /* PRIMARY BRAND - Updated to match schema */
+  --rac-blue:         #005CFF;  /* Updated from #0EA5E9 */
+  --rac-blue-dark:    #0044CC;  /* hover / pressed */
+  --rac-blue-glow:    rgba(0,92,255,0.20);
 
-  /* SIGNALS */
-  --rac-signal:       #F97316;
+  /* SIGNALS - Updated to match schema */
+  --rac-signal:       #F5C542;  /* Updated from #F97316 to solar-gold */
   --rac-success:      #10B981;
   --rac-warning:      #FACC15;
   --rac-danger:       #EF4444;
@@ -35,4 +35,12 @@
   --border-color:     var(--rac-border);
   --text:             var(--rac-text-main);
   --text-muted:       var(--rac-text-muted);
+
+  /* SCHEMA ALIASES for compatibility */
+  --race-blue:        var(--rac-blue);
+  --obsidian-black:   var(--rac-depth);
+  --solar-gold:       var(--rac-signal);
+  --slate-steel:      #2A2F34;
+  --cool-gray:        #E6E8EB;
+  --white:            #FFFFFF;
 }
