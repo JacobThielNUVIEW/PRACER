@@ -1,7 +1,7 @@
 # Launch and open n8n
 
-# Run the deployment script
-& "$PSScriptRoot\..\scripts\deploy_n8n.ps1"
+# Run the deployment script (fix path)
+& "$PSScriptRoot\scripts\deploy_n8n.ps1"
 
 # Wait a few seconds for n8n to start (adjust as needed)
 Start-Sleep -Seconds 5

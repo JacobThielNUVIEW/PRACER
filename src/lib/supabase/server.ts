@@ -1,4 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
+// Re-export createServerClient so other modules can import it from this helper
+export { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
 export async function createClient() {

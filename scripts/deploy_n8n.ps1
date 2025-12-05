@@ -23,8 +23,35 @@ try {
     Write-Host "[DEBUG] Volume exists - idempotent"
 }
 
-$env:N8N_USER = $env:N8N_USER -or "admin"
-$env:N8N_PASS = $env:N8N_PASS -or "your-vault-pass"
+# Read N8N credentials directly from .env.local (sanity & to avoid boolean misassignment)
+if (Test-Path $envPath) {
+    $n8nUser = (Get-Content $envPath | Where-Object { $_ -match '^N8N_USER' } | ForEach-Object { ($_ -split '=')[1].Trim().Trim('"') } | Select-Object -Last 1)
+    $n8nPass = (Get-Content $envPath | Where-Object { $_ -match '^N8N_PASS' } | ForEach-Object { ($_ -split '=')[1].Trim().Trim('"') } | Select-Object -Last 1)
+} else {
+    $n8nUser = $env:N8N_USER
+    $n8nPass = $env:N8N_PASS
+}
+
+if (-not $n8nUser -or $n8nUser -eq "") { $n8nUser = "admin" }
+if (-not $n8nPass -or $n8nPass -eq "") { $n8nPass = "your-vault-pass" }
+
+Write-Host "[DEBUG] N8N user (from env): $n8nUser"
+Write-Host "[DEBUG] N8N pass length (not printed): $(if ($n8nPass) { $n8nPass.Length } else { 0 })"
+
+if (Test-Path $envPath) {
+    $supabaseServiceRoleKey = (Get-Content $envPath | Where-Object { $_ -match '^SUPABASE_SERVICE_ROLE_KEY' } | ForEach-Object { ($_ -split '=')[1].Trim().Trim('"') } | Select-Object -Last 1)
+    $openAiKeyProd = (Get-Content $envPath | Where-Object { $_ -match '^OPENAI_API_KEY_PROD' } | ForEach-Object { ($_ -split '=')[1].Trim().Trim('"') } | Select-Object -Last 1)
+    $openAiKeyDev = (Get-Content $envPath | Where-Object { $_ -match '^OPENAI_API_KEY_DEV' } | ForEach-Object { ($_ -split '=')[1].Trim().Trim('"') } | Select-Object -Last 1)
+    $openAiKey = $openAiKeyProd
+    if (-not $openAiKey -or $openAiKey -eq "") { $openAiKey = $openAiKeyDev }
+    if (-not $openAiKey -or $openAiKey -eq "") { $openAiKey = (Get-Content $envPath | Where-Object { $_ -match '^OPENAI_API_KEY' } | ForEach-Object { ($_ -split '=')[1].Trim().Trim('"') }) }
+} else {
+    $supabaseServiceRoleKey = $env:SUPABASE_SERVICE_ROLE_KEY
+    $openAiKey = $env:OPENAI_API_KEY
+}
+
+Write-Host "[DEBUG] SUPABASE_SERVICE_ROLE_KEY length: $(if ($supabaseServiceRoleKey) { $supabaseServiceRoleKey.Length } else { 0 })"
+Write-Host "[DEBUG] OPENAI key present: $(if ($openAiKey) { 'yes' } else { 'no' })"
 
 $dockerRun = @(
     "docker run -d",
@@ -32,14 +59,18 @@ $dockerRun = @(
     "-p 5678:5678",
     "-v racelay_n8n_data:/home/node/.n8n",
     "-e N8N_BASIC_AUTH_ACTIVE=true",
-    "-e N8N_BASIC_AUTH_USER=$($env:N8N_USER)",
-    "-e N8N_BASIC_AUTH_PASSWORD=$($env:N8N_PASS)",
+    "-e N8N_BASIC_AUTH_USER=$($n8nUser)",
+    "-e N8N_BASIC_AUTH_PASSWORD=$($n8nPass)",
+    "-e SUPABASE_SERVICE_ROLE_KEY=$($supabaseServiceRoleKey)",
+    "-e OPENAI_API_KEY=$($openAiKey)",
     "-e WEBHOOK_URL=https://dev.racelay.com/webhook",
     "-e GENERIC_TIMEZONE=America/New_York",
     "docker.n8n.io/n8nio/n8n:latest"
 ) -join " "
 
-$runResult = Invoke-Expression "$dockerRun 2>> n8n-logs.txt"
+$runResultCmd = "$dockerRun 2>> n8n-logs.txt"
+Write-Host "[DEBUG] Docker run command: $dockerRun"
+$runResult = Invoke-Expression $runResultCmd
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✅ [SUCCESS] n8n deployed. Access UI: http://localhost:5678"
