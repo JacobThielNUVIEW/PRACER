@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 export const revalidate = 0;
 
 export default async function SettingsPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   
   if (!user) redirect('/auth');
