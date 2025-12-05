@@ -33,6 +33,10 @@ yarn-error.log*
 # Local env archive
 env-archive/
 
+# n8n local logs & cookies
+n8n-logs.txt
+cookies.txt
+
 # vercel
 .vercel
 
