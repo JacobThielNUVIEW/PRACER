@@ -24,6 +24,7 @@ jobs:
           ALLOWED_EMAILS: |
             jacob.thiel@nuview.space
             jacob@racelay.com
+            cooknick30@gmail.com
         run: |
           echo "Checking commits for allowed authors..."
 
