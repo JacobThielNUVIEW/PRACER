@@ -30,7 +30,7 @@ export async function GET(request: Request) {
   // If we have a code, exchange it for a session
   if (code) {
     try {
-      const cookieStore = cookies()
+      const cookieStore = await cookies()
       
       // Use @supabase/ssr for proper cookie handling
         const supabase = createServerClient(
