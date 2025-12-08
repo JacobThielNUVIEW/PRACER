@@ -1,3 +1,143 @@
+++ Begin Patch
+# PRACER / RACELAY — Project Overview, Phases & Ownership Transfer
+
+This README provides a single, authoritative source of truth for the project: architecture, how things work end-to-end, UI mapping, a detailed Phase 1 breakdown (what each UI shows), and a precise ownership-transfer checklist.
+
+If you need this file adjusted (tone, more diagrams, exported DB schema, or a CONVERTED Google Sheet of steps), tell me and I will update it.
+
+---
+
+## Short summary
+
+PRACER (RACELAY) is an adaptive running platform built with Next.js (app router), Supabase (DB + Edge Functions), and n8n automations that call OpenAI to generate short coaching notes for opt-in users. The design enforces an "air-gap" privacy model: the system only sends minimal, sanitized signals to OpenAI (no GPS, HR, or PII).
+
+This document contains:
+- Phase 1: Full breakdown and UI mapping (what each UI shows and where the code lives)
+- Repo ownership transition checklist focused on migrating control from the company account to your personal account while preserving CI, Vercel deploys, and GitHub Actions
+
+---
+
+## Phase 1 — Full breakdown
+
+Goal: Launch a privacy-first, opt-in AI coaching feature and validate the end-to-end flow while keeping production secrets safe.
+
+1) Frontend — Hosted on Vercel
+- Primary stack: Next.js (app router) deployed to Vercel
+- Pages & locations (code):
+  - App layout & globals: `src/app/layout.tsx`, `src/app/globals.css`
+  - Auth flows: `src/app/auth/*` (sign-in pages, callback routes, session handlers)
+  - Dashboard: `src/app/dashboard/*` (dashboard page, client dashboard components, activity list)
+  - Settings: `src/app/dashboard/settings/page.tsx` (contains the `AiToggle` component)
+  - Error handling: `src/app/error.tsx`, `src/app/_global-error/page.tsx`
+
+Description: The frontend presents the settings (toggle), dashboard with activities & coach notes, and auth flows. Interactive parts are `use client` and call Supabase client functions.
+
+2) Backend — Supabase (SQL + Edge Functions)
+- DB: SQL (Supabase-managed)
+  - Key tables: `profiles` (contains `ai_coaching_enabled`), `activities` (contains `ai_coach_notes`)
+  - Sample SQL tasks: add `ai_coaching_enabled` boolean to `profiles`; add `ai_coach_notes` text column to `activities`.
+- Edge Functions & shared helpers: `supabase/functions/*` and `supabase/functions/_shared/ai-guard.ts`
+
+Description: Server-side logic reads `ai_coaching_enabled` and, if allowed, enqueues jobs or responds to webhooks that n8n consumes.
+
+3) Admin / Firebase (Admin Page)
+- NOTE: This repository is Supabase-centric; if you maintain an admin portal in Firebase, treat Firebase as an optional admin UI provider. Document any Firebase-specific admin pages in `docs/ADMIN.md`.
+
+4) n8n automation
+- Workflow definition: `racelay-ai-coach-workflow.json`
+- Runner scripts: `scripts/deploy_n8n.ps1`, `launch_n8n.ps1` (these run n8n in Docker with environment vars)
+
+Description: n8n workflows read recent activities for opt-in users, run a prompt through OpenAI, then write `ai_coach_notes` back into Supabase if `ai-guard` approves.
+
+5) Assets & Branding
+- Logos and partner assets: `public/assets/images/*`
+- Partner logo helper / mapping: `src/components/PartnerLogo.tsx` (or `src/components/PartnerLogo`) + `src/lib/constants.ts` mapping
+
+6) Schema (quick)
+- `profiles` — id (uuid), email, display_name, ai_coaching_enabled (boolean), vdot (float)
+- `activities` — id, profile_id, start_time, duration, distance, vdot_score, ai_coach_notes (text)
+
+7) Phase 1 success criteria
+- Users can toggle AI coach ON/OFF in the Settings page
+- n8n workflow produces short (one-sentence) coach notes and writes them into `activities.ai_coach_notes` for opt-in users
+- No PII, GPS traces, or raw Strava data is sent to OpenAI; `ai-guard` sanitizes inputs
+
+---
+
+## UI mapping — what each screen shows (developer reference)
+
+- Settings (`/dashboard/settings`) — `src/app/dashboard/settings/page.tsx`
+  - Shows: `AiToggle` component, privacy bullets, brief explanation of what is sent to AI
+  - Actions: toggles `ai_coaching_enabled` on the profile via Supabase client
+
+- Dashboard (`/dashboard`) — `src/app/dashboard/*`
+  - Shows: list of recent activities, for each activity: summary, VDOT, and `ai_coach_notes` (if present)
+  - Actions: expand activity to view full coach note and metadata (no raw PII)
+
+- Auth pages (`/auth`) — `src/app/auth/*`
+  - Shows: login options, debug auth pages, callback route handling
+
+---
+
+## Ownership-Transfer checklist (precise steps)
+
+You requested a complete and unbreakable repo ownership transition so `Jacobqtqt` (jqthiel@gmail.com) has identical rights as the company account `JacobThielNUVIEW`.
+
+Important: Some steps require organization or repo administration access. The assistant can run local Git operations and verify remotes, but cannot add collaborators or transfer Vercel project ownership via the web UI.
+
+Follow this exact ordered checklist. Mark steps done only after confirmation.
+
+Automatable (local) steps — I can run these if you confirm:
+1) Verify current remote URL (must be JacobThielNUVIEW/racelay or your chosen remote)
+   - Run: `git remote -v`
+2) Change git user config to use `Jacobqtqt` globally on this machine
+   - Exact commands:
+     - `git config --global user.name "Jacobqtqt"`
+     - `git config --global user.email "jqthiel@gmail.com"`
+   - Note: this changes local commit author metadata. GitHub authentication for pushes depends on credentials (SSH key or HTTPS token) configured in your environment.
+3) Create a test commit to prove pushes and set author metadata
+   - Create `ownership-transfer-test.txt`, commit, and push to `origin`.
+
+Manual (GitHub / Vercel UI) steps — must be performed in the web UI by an admin:
+4) Add `JacobThielNUVIEW` as a repository collaborator with Admin rights
+   - GitHub → Repo → Settings → Manage access → Invite collaborator `JacobThielNUVIEW` → Role: Admin
+5) Confirm both accounts appear as Owner/Admin in repo settings (GitHub web UI)
+6) Update Vercel project ownership or add `Jacobqtqt` as owner
+   - Vercel → Project → Settings → General → Transfer Project OR add user to team with Owner role
+7) Reinstall/verify GitHub App (Vercel) for the new account if necessary
+
+Validation steps (after UI changes):
+8) Test push from `Jacobqtqt` account: commit and push a short change; verify commit author and that it appears in the repo
+9) Confirm Vercel auto-deploys: check Vercel deployment log for the commit hash and a successful build
+10) Confirm n8n & Supabase envs in Vercel are intact (Vercel project settings → Environment Variables)
+
+Final status table (fill after execution):
+
+| Step                  | Status | Notes |
+|-----------------------|--------|-------|
+| Git user changed      | ⬜️     |       |
+| Admin rights granted  | ⬜️     | Manual: GitHub UI |
+| Vercel ownership      | ⬜️     | Manual: Vercel UI |
+| Test push success     | ⬜️     |       |
+| Deploy triggered      | ⬜️     | Manual: Vercel check |
+
+---
+
+## I can run the local automatable steps now (confirmation required)
+
+If you confirm, I will execute the following locally from this workspace in order:
+- `git remote -v` (show remotes)
+- `git config --global user.name "Jacobqtqt"`
+- `git config --global user.email "jqthiel@gmail.com"`
+- create `ownership-transfer-test.txt`, commit with message `chore: test ownership transfer - commit by Jacobqtqt` and push to `origin`
+
+I will **not** perform GitHub or Vercel UI actions — those require human admin access. I will report results and update the status table for the automatable steps. After that, I'll provide exact UI steps and the minimal screenshots/text you should paste into the GitHub and Vercel flows.
+
+---
+
+If you'd like me to proceed with the local automatable flow, reply: `PROCEED LOCAL`. If you want only the README or other docs edited, reply: `EDIT README ONLY` and list changes.
+
+If you want me to proceed, confirm now and I'll run the local commands and report back with the results and updated status table.
 ++ Begin Bin
 ```markdown
 # RACELAY — Adaptive running & coaching platform
