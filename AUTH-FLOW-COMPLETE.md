@@ -98,7 +98,7 @@
 ### **First Time Sign Up:**
 1. Click "Continue with Google"
 2. Google login screen appears
-3. Grant permission to RACELAY
+3. Grant permission to PRACER
 4. **Instantly redirected to dashboard**
 5. See "Connect Strava" call-to-action
 
@@ -208,7 +208,7 @@ src/
 ✅ Profile auto-creation
 ✅ Dashboard protection (redirects to /auth if not logged in)
 ✅ Sign out functionality
-✅ Beautiful UI with RACELAY branding
+✅ Beautiful UI with PRACER branding
 
 ---
 

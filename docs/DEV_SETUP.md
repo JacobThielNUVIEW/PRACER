@@ -1,6 +1,6 @@
 # Development setup and cross-machine workflow
 
-This document explains how to work on the `racelay` across multiple machines (home PC, work laptop, etc.) while keeping local envs secure, synced, and ensuring you work on the latest code.
+This document explains how to work on the `pracer` across multiple machines (home PC, work laptop, etc.) while keeping local envs secure, synced, and ensuring you work on the latest code.
 
 ## Goals
 - Quick local bootstrapping for new machines
@@ -16,8 +16,8 @@ This document explains how to work on the `racelay` across multiple machines (ho
 ## Quick start (new machine)
 1. Clone the repo:
    ```bash
-   git clone git@github.com:JacobThielNUVIEW/racelay.git
-   cd racelay
+   git clone git@github.com:JacobThielNUVIEW/pracer.git
+   cd pracer
    ```
 2. Run the setup helper (creates `.env.local` from `.env.example`):
    ```bash
@@ -42,7 +42,7 @@ This document explains how to work on the `racelay` across multiple machines (ho
 2. On new machine:
    ```bash
    eval $(op signin my)
-   op item get "racelay/dev/supabase" --fields label=NEXT_PUBLIC_SUPABASE_URL,label=NEXT_PUBLIC_SUPABASE_ANON_KEY > .env.local
+   op item get "pracer/dev/supabase" --fields label=NEXT_PUBLIC_SUPABASE_URL,label=NEXT_PUBLIC_SUPABASE_ANON_KEY > .env.local
    ```
 
 ## Working on multiple machines

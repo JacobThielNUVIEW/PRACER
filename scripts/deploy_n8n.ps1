@@ -1,5 +1,5 @@
 # Load .env.local from project root
-$envPath = "C:\Users\Jacob\racelay\.env.local"
+$envPath = "C:\Users\Jacob\pracer\.env.local"
 if (Test-Path $envPath) {
     Get-Content $envPath | ForEach-Object {
         if ($_ -match "^(?<key>[^#=]+)=(?<value>.+)$") {
@@ -11,13 +11,13 @@ if (Test-Path $envPath) {
 } else {
     Write-Host "[WARN] .env.local not found. Using default values."
 }
-# RACELAY n8n Deploy Script v1.0 - PowerShell version
+# PRACER n8n Deploy Script v1.0 - PowerShell version
 # Debug: Logs to n8n-logs.txt; Loading: Progress echoes
 
-Write-Host "🚀 [LOADING] Initializing n8n for RACELAY Dev Automation..."
+Write-Host "🚀 [LOADING] Initializing n8n for PRACER Dev Automation..."
 
 try {
-    docker volume create racelay_n8n_data 2>> n8n-logs.txt | Out-Null
+    docker volume create pracer_n8n_data 2>> n8n-logs.txt | Out-Null
     Write-Host "[DEBUG] Volume created or already exists."
 } catch {
     Write-Host "[DEBUG] Volume exists - idempotent"
@@ -55,15 +55,15 @@ Write-Host "[DEBUG] OPENAI key present: $(if ($openAiKey) { 'yes' } else { 'no' 
 
 $dockerRun = @(
     "docker run -d",
-    "--name racelay-n8n",
+    "--name pracer-n8n",
     "-p 5678:5678",
-    "-v racelay_n8n_data:/home/node/.n8n",
+    "-v pracer_n8n_data:/home/node/.n8n",
     "-e N8N_BASIC_AUTH_ACTIVE=true",
     "-e N8N_BASIC_AUTH_USER=$($n8nUser)",
     "-e N8N_BASIC_AUTH_PASSWORD=$($n8nPass)",
     "-e SUPABASE_SERVICE_ROLE_KEY=$($supabaseServiceRoleKey)",
     "-e OPENAI_API_KEY=$($openAiKey)",
-    "-e WEBHOOK_URL=https://dev.racelay.com/webhook",
+    "-e WEBHOOK_URL=https://dev.pracer.com/webhook",
     "-e GENERIC_TIMEZONE=America/New_York",
     "docker.n8n.io/n8nio/n8n:latest"
 ) -join " "

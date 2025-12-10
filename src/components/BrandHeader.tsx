@@ -7,7 +7,7 @@ export default function BrandHeader() {
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-md bg-[var(--rac-blue)]" />
           <div>
-            <div className="text-lg font-black tracking-tight">RACELAY</div>
+            <div className="text-lg font-black tracking-tight">PRACER</div>
             <div className="text-xs text-rac-text-muted uppercase">NEVER STOP</div>
           </div>
         </div>

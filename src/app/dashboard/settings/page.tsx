@@ -31,14 +31,14 @@ export default async function SettingsPage() {
             />
             
             <div className="mt-6 text-xs text-slate-500 space-y-2 border-t border-slate-800 pt-4">
-              <p>✓ When ON: Only your VDOT score (calculated by RACELAY) is sent to AI for motivation</p>
+              <p>✓ When ON: Only your VDOT score (calculated by PRACER) is sent to AI for motivation</p>
               <p>✗ Never sent: GPS tracks, run names, heart rate, locations, or raw Strava data</p>
               <p>✓ 100% compliant with Strava 2025 API terms</p>
             </div>
           </div>
 
           <div className="text-center text-slate-600 text-sm">
-            <p>RACELAY • NEVER STOP</p>
+            <p>PRACER • NEVER STOP</p>
           </div>
         </div>
       </div>

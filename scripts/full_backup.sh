@@ -7,7 +7,7 @@ set -euo pipefail
 TIMESTAMP=$(date -u +%Y%m%dT%H%M%SZ)
 BACKUP_DIR="/Users/JThiel/Documents/Backup"
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
-ARCHIVE_NAME="racelay-full-$TIMESTAMP.tar.gz"
+ARCHIVE_NAME="pracer-full-$TIMESTAMP.tar.gz"
 
 mkdir -p "$BACKUP_DIR"
 

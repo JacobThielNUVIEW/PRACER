@@ -81,7 +81,7 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-rac-depth flex items-center justify-center" style={{ color: 'var(--text-primary)' }}>
-        <div className="text-6xl font-hud font-extrabold text-rac-signal animate-pulse tracking-tight">RACELAY</div>
+        <div className="text-6xl font-hud font-extrabold text-rac-signal animate-pulse tracking-tight">PRACER</div>
       </div>
     );
   }
@@ -94,7 +94,7 @@ export default function Dashboard() {
             <div className="mx-auto w-24 h-24">
               <PartnerLogo brand="strava" size={96} />
             </div>
-            <h1 className="text-5xl font-hud font-extrabold text-rac-signal tracking-tight">RACELAY</h1>
+            <h1 className="text-5xl font-hud font-extrabold text-rac-signal tracking-tight">PRACER</h1>
           </div>
           <p className="text-lg text-[var(--text-secondary)] font-light">Connect your Strava to unlock adaptive training and visualize your progress.</p>
           <PrimaryButton onClick={handleConnectStrava} disabled={connecting} className="w-full">
@@ -115,7 +115,7 @@ export default function Dashboard() {
               <div className="w-10 h-10 transition-transform duration-500 group-hover:rotate-180">
                 <Logo />
               </div>
-              <h1 className="text-2xl font-black text-rac-signal tracking-tighter">RACELAY</h1>
+              <h1 className="text-2xl font-black text-rac-signal tracking-tighter">PRACER</h1>
             </div>
             <button onClick={handleSignOut} className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 hover:text-white text-slate-300 rounded-xl text-sm font-medium transition-all duration-200">Disconnect</button>
           </div>

@@ -1,7 +1,7 @@
-# Directory Structure — racelay-dashboard
+# Directory Structure — pracer-dashboard
 
 ```
-racelay-dashboard/
+pracer-dashboard/
 └─ src/
    ├─ components/
    │  ├─ PartnerLogo.tsx
@@ -19,8 +19,8 @@ racelay-dashboard/
 
 public/
 └─ logos/
-   ├─ racelay-logo.svg
-   ├─ racelay-logo.svg
+   ├─ pracer-logo.svg
+   ├─ pracer-logo.svg
    ├─ strava-logo.svg
    ├─ garmin-logo.svg
    ├─ apple-logo.svg

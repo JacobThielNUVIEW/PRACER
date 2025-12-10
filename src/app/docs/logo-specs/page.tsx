@@ -7,7 +7,7 @@ const logos: string[] = Object.keys(IMAGES.logos).filter(k => !k.toLowerCase().i
 export default function LogoSpecsPage() {
   return (
     <div className="min-h-screen p-12 bg-rac-depth text-rac-text-main">
-      <h1 className="text-3xl font-hud mb-6">RACELAY — Partner Logo Specs</h1>
+      <h1 className="text-3xl font-hud mb-6">PRACER — Partner Logo Specs</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {logos.map((key) => (
           <div key={key} className="p-6 bg-rac-surface rounded-lg border border-rac-border">

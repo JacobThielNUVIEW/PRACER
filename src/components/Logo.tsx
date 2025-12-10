@@ -14,7 +14,7 @@ export default function Logo({ className = "", size = 32 }: LogoProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="Racelay Logo"
+      aria-label="Pracer Logo"
     >
       {/* A solid, fast, italicized R shape */}
       <path

@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Propose a new feature for RACELAY
+about: Propose a new feature for PRACER
 title: "[Feature] "
 labels: ["feature"]
 assignees: ""

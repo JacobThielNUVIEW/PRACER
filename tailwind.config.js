@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // RACELAY Palette (canonical mapping)
+        // PRACER Palette (canonical mapping)
         rac: {
           depth:   'var(--rac-depth, #0B0C10)',
           surface: 'var(--rac-surface, #13151A)',

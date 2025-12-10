@@ -1,5 +1,5 @@
 ++ Begin Patch
-# PRACER / RACELAY — Project Overview, Phases & Ownership Transfer
+# PRACER — Project Overview, Phases & Ownership Transfer
 
 This README provides a single, authoritative source of truth for the project: architecture, how things work end-to-end, UI mapping, a detailed Phase 1 breakdown (what each UI shows), and a precise ownership-transfer checklist.
 
@@ -9,7 +9,7 @@ If you need this file adjusted (tone, more diagrams, exported DB schema, or a CO
 
 ## Short summary
 
-PRACER (RACELAY) is an adaptive running platform built with Next.js (app router), Supabase (DB + Edge Functions), and n8n automations that call OpenAI to generate short coaching notes for opt-in users. The design enforces an "air-gap" privacy model: the system only sends minimal, sanitized signals to OpenAI (no GPS, HR, or PII).
+PRACER (formerly RACELAY) is an adaptive running platform built with Next.js (app router), Supabase (DB + Edge Functions), and n8n automations that call OpenAI to generate short coaching notes for opt-in users. The design enforces an "air-gap" privacy model: the system only sends minimal, sanitized signals to OpenAI (no GPS, HR, or PII).
 
 This document contains:
 - Phase 1: Full breakdown and UI mapping (what each UI shows and where the code lives)
@@ -44,7 +44,7 @@ Description: Server-side logic reads `ai_coaching_enabled` and, if allowed, enqu
 - NOTE: This repository is Supabase-centric; if you maintain an admin portal in Firebase, treat Firebase as an optional admin UI provider. Document any Firebase-specific admin pages in `docs/ADMIN.md`.
 
 4) n8n automation
-- Workflow definition: `racelay-ai-coach-workflow.json`
+- Workflow definition: `pracer-ai-coach-workflow.json`
 - Runner scripts: `scripts/deploy_n8n.ps1`, `launch_n8n.ps1` (these run n8n in Docker with environment vars)
 
 Description: n8n workflows read recent activities for opt-in users, run a prompt through OpenAI, then write `ai_coach_notes` back into Supabase if `ai-guard` approves.
@@ -140,9 +140,9 @@ If you'd like me to proceed with the local automatable flow, reply: `PROCEED LOC
 If you want me to proceed, confirm now and I'll run the local commands and report back with the results and updated status table.
 ++ Begin Bin
 ```markdown
-# RACELAY — Adaptive running & coaching platform
+# PRACER — Adaptive running & coaching platform
 
-RACELAY is a modern web application combining a Next.js front-end, Supabase backend (DB + Edge Functions), and n8n automations that connect to OpenAI for a privacy-first AI-coaching experience.
+PRACER is a modern web application combining a Next.js front-end, Supabase backend (DB + Edge Functions), and n8n automations that connect to OpenAI for a privacy-first AI-coaching experience.
 
 ---
 
@@ -168,7 +168,7 @@ RACELAY is a modern web application combining a Next.js front-end, Supabase back
 
 ## Project overview
 
-RACELAY is an adaptive running platform that stores user profiles and activities in Supabase and enriches the experience with optional AI-generated coaching notes. The product design emphasizes privacy and an "air-gap" approach — only small, non-identifying, sanitized-derived signals (like a VDOT score) are sent to AI.
+PRACER is an adaptive running platform that stores user profiles and activities in Supabase and enriches the experience with optional AI-generated coaching notes. The product design emphasizes privacy and an "air-gap" approach — only small, non-identifying, sanitized-derived signals (like a VDOT score) are sent to AI.
 
 Key properties
 - Air-gap safeguards for AI: `ai_coaching_enabled` toggles per-user which activities can be processed.
@@ -192,11 +192,11 @@ Key properties
   - `src/lib/supabase/client.ts` — client-side supabase instance (use for client components)
 
 - n8n
-  - Workflow JSON: `racelay-ai-coach-workflow.json`
+  - Workflow JSON: `pracer-ai-coach-workflow.json`
   - Local dev: `scripts/deploy_n8n.ps1`, `launch_n8n.ps1` to run n8n with environment variables injected
 
 - OpenAI Integration
-  - Workflow nodes in `racelay-ai-coach-workflow.json` call OpenAI to generate coach notes
+  - Workflow nodes in `pracer-ai-coach-workflow.json` call OpenAI to generate coach notes
   - Stored result flows back into Supabase as `ai_coach_notes` into `activities` (if allowed by guard)
 
 ---
@@ -264,9 +264,9 @@ Security note: The Supabase Service Role Key should only be used server-side in 
 
 1. Launch local n8n via `scripts/deploy_n8n.ps1` (will read `.env.local` to set keys)
 2. Create credentials in the n8n editor (Admin > Credentials):
-   - `RACELAY OpenAI` → OpenAI key (from env)
-   - `RACELAY Supabase` → Supabase url + service role key (server-only keys)
-3. Import workflow: `racelay-ai-coach-workflow.json` from the repo via n8n Editor or via REST
+   - `PRACER OpenAI` → OpenAI key (from env)
+   - `PRACER Supabase` → Supabase url + service role key (server-only keys)
+3. Import workflow: `pracer-ai-coach-workflow.json` from the repo via n8n Editor or via REST
 4. For workflow nodes using Supabase and OpenAI, set the credential reference to the credentials created in step 2
 5. Test the workflow: toggle `ai_coaching_enabled=true` on a test profile and run the workflow
 
@@ -361,7 +361,7 @@ This repo is currently private; add licensing details if/when you publish the pr
 
 ---
 
-Thank you for contributing to RACELAY. We prioritize privacy, security, and open, well-documented practices. If anything in this README is unclear, or you want a different layout or extra detail somewhere, tell me and I’ll refine it further.
+Thank you for contributing to PRACER. We prioritize privacy, security, and open, well-documented practices. If anything in this README is unclear, or you want a different layout or extra detail somewhere, tell me and I'll refine it further.
 ```
 
 ++ End Bin# REACELAY – Adaptive running platform
@@ -418,7 +418,7 @@ Below are the current project tasks, status, and recommended next steps. Use thi
 
 ### Status summary
 
-- ✅ Repo rename & branding to RACELAY
+- ✅ Repo rename & branding to PRACER
 - ✅ Air-gap guard function (`supabase/functions/_shared/ai-guard.ts`) implemented
 - ✅ `ai_coaching_enabled` column added to `profiles` and UI toggle component built (`src/components/AiToggle.tsx`)
 - ✅ `launch_n8n.ps1` + `scripts/deploy_n8n.ps1` created and improved for reliable env injection
@@ -426,7 +426,7 @@ Below are the current project tasks, status, and recommended next steps. Use thi
 - ✅ GitHub Action added to restrict commit authors
 - ✅ n8n container running locally when launched via script
 - ☐ n8n credentials created (OpenAI + Supabase service role) in the running n8n instance
-- ☐ Import `racelay-ai-coach-workflow.json` into n8n and confirm credentials map correctly
+- ☐ Import `pracer-ai-coach-workflow.json` into n8n and confirm credentials map correctly
 - ☐ Run E2E test: enable `ai_coaching_enabled` on a profile and confirm `ai_coach_notes` generation
 - ☐ Deploy settings page and push to Vercel (confirm environment variables & secrets)
 - ☐ Confirm Vercel project is connected to the correct GitHub account and runs using the permitted author
@@ -440,10 +440,10 @@ Below are the current project tasks, status, and recommended next steps. Use thi
 
 2. n8n configuration & workflow import
 	- [ ] Create credentials in n8n (Admin > Credentials)
-	  - Name: `RACELAY OpenAI`, Type: `OpenAI` (or `openAiApi`), API Key: `OPENAI_API_KEY_PROD` (or DEV if testing)
-	  - Name: `RACELAY Supabase`, Type: `Supabase`, URL: `NEXT_PUBLIC_SUPABASE_URL`, Service Role Key: `SUPABASE_SERVICE_ROLE_KEY`
-	- [ ] Import `racelay-ai-coach-workflow.json` using n8n Editor -> Import (or via REST)
-	- [ ] For each Supabase node in the workflow, set `RACELAY Supabase` credential
+	  - Name: `PRACER OpenAI`, Type: `OpenAI` (or `openAiApi`), API Key: `OPENAI_API_KEY_PROD` (or DEV if testing)
+	  - Name: `PRACER Supabase`, Type: `Supabase`, URL: `NEXT_PUBLIC_SUPABASE_URL`, Service Role Key: `SUPABASE_SERVICE_ROLE_KEY`
+	- [ ] Import `pracer-ai-coach-workflow.json` using n8n Editor -> Import (or via REST)
+	- [ ] For each Supabase node in the workflow, set `PRACER Supabase` credential
 	- [ ] For the OpenAI chat node, set `RACELAY OpenAI` credential
 
 3. Test the workflow locally

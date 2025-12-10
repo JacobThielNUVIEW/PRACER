@@ -1,0 +1,217 @@
+{
+  "name": "RACELAY Automated Reporting & Bug Detection",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /app && npm run lint",
+        "options": {}
+      },
+      "name": "Run ESLint",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        460,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "command": "cd /app && npm run build",
+        "options": {}
+      },
+      "name": "Run Build Check",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        460,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10,
+        "options": {
+          "filter": "created_at >= '{{ new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString() }}'"
+        }
+      },
+      "name": "Check Recent Activities",
+      "type": "@n8n/n8n-nodes-langchain.supabase",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "your-supabase-credential-id",
+          "name": "RACELAY Supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "messages": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a senior software engineer and QA analyst. Analyze the following data and generate a comprehensive report."
+            },
+            {
+              "role": "user",
+              "content": "Application Health Report:\n\nESLint Results: {{$json.eslint_output}}\nBuild Results: {{$json.build_output}}\nRecent Activities Count: {{$json.activities_count}}\n\nGenerate a report covering:\n1. Code Quality Issues\n2. Build Status\n3. Data Integrity\n4. Performance Metrics\n5. Recommendations\n\nBe specific and actionable."
+            }
+          ]
+        }
+      },
+      "name": "AI Report Generator",
+      "type": "@n8n/n8n-nodes-langchain.chatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "your-openai-credential-id",
+          "name": "RACELAY OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "system_reports",
+        "data": {
+          "report_type": "daily_health_check",
+          "content": "={{ $json.choices[0].message.content }}",
+          "generated_at": "={{ new Date().toISOString() }}",
+          "status": "completed"
+        }
+      },
+      "name": "Save Report to DB",
+      "type": "@n8n/n8n-nodes-langchain.supabase",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "your-supabase-credential-id",
+          "name": "RACELAY Supabase"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@racelay.com",
+        "toEmail": "admin@racelay.com",
+        "subject": "RACELAY Daily Health Report - {{ new Date().toLocaleDateString() }}",
+        "text": "={{ $json.choices[0].message.content }}",
+        "options": {}
+      },
+      "name": "Send Email Report",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Run ESLint",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Run Build Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run ESLint": {
+      "main": [
+        [
+          {
+            "node": "Check Recent Activities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Build Check": {
+      "main": [
+        [
+          {
+            "node": "Check Recent Activities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Recent Activities": {
+      "main": [
+        [
+          {
+            "node": "AI Report Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Report Generator": {
+      "main": [
+        [
+          {
+            "node": "Save Report to DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Report to DB": {
+      "main": [
+        [
+          {
+            "node": "Send Email Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null
+}
