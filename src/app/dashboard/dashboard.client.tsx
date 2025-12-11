@@ -29,6 +29,7 @@ export default function Dashboard() {
   const [activities, setActivities] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [connecting, setConnecting] = useState(false);
+  const [generatingNotes, setGeneratingNotes] = useState<string | null>(null);
   const supabase = createClient();
   const router = useRouter();
 
@@ -76,6 +77,35 @@ export default function Dashboard() {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.push('/');
+  };
+
+  const handleGenerateNotes = async (activityId: string) => {
+    setGeneratingNotes(activityId);
+    try {
+      const response = await fetch('/api/ai-coach', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ activityId })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate notes');
+      }
+
+      const result = await response.json();
+
+      // Update the local activities state
+      setActivities(prev => prev.map(act =>
+        act.id === activityId
+          ? { ...act, ai_coach_notes: result.notes, ai_coach_processed_at: new Date().toISOString() }
+          : act
+      ));
+    } catch (error) {
+      console.error('Error generating AI notes:', error);
+      alert('Failed to generate AI coaching notes. Please try again.');
+    } finally {
+      setGeneratingNotes(null);
+    }
   };
 
   if (loading) {
@@ -160,7 +190,7 @@ export default function Dashboard() {
                   <div className="flex justify-between items-start mb-4"><h3 className="font-bold text-lg truncate text-silver-500 group-hover:text-rac-signal transition-colors pr-8">{act.name}</h3></div>
                   <p className="text-silver-400 text-xs font-mono mb-6 uppercase tracking-wider">{new Date(act.start_date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</p>
                   
-                  {act.ai_coach_notes && (
+                  {act.ai_coach_notes ? (
                     <div className="mb-6 p-4 bg-rac-signal/10 border border-rac-signal/20 rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
                         <svg className="w-4 h-4 text-rac-signal" fill="currentColor" viewBox="0 0 24 24">
@@ -175,7 +205,29 @@ export default function Dashboard() {
                         </p>
                       )}
                     </div>
-                  )}
+                  ) : profile?.ai_coaching_enabled ? (
+                    <div className="mb-6 p-4 bg-slate-800/50 border border-slate-700 rounded-lg">
+                      <button
+                        onClick={() => handleGenerateNotes(act.id)}
+                        disabled={generatingNotes === act.id}
+                        className="flex items-center gap-2 text-xs font-bold text-rac-signal uppercase tracking-wider hover:text-silver-300 transition-colors disabled:opacity-50"
+                      >
+                        {generatingNotes === act.id ? (
+                          <>
+                            <div className="w-3 h-3 border border-rac-signal border-t-transparent rounded-full animate-spin"></div>
+                            Generating...
+                          </>
+                        ) : (
+                          <>
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            Generate AI Notes
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  ) : null}
                   
                   <div className="flex justify-between items-end border-t border-slate-800/50 pt-4 mt-auto">
                     <div><div className="flex items-baseline gap-1"><p className="text-3xl font-black text-rac-signal group-hover:text-silver-500 transition-colors">{act.vdot_generated?.toFixed(1) || '--'}</p><span className="text-xs text-silver-400 font-bold">VDOT</span></div></div>

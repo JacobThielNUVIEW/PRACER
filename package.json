@@ -15,8 +15,10 @@
     "@supabase/auth-helpers-nextjs": "^0.15.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.86.0",
+    "ai": "^5.0.108",
     "clsx": "^2.1.1",
     "next": "^15.5.7",
+    "ollama": "^0.6.3",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^3.4.0"
