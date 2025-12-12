@@ -1,9 +1,0 @@
-/# Ignore Supabase serverless/functions and temp files (only at repo root)
-/supabase/
-/supabase/.temp/
-/supabase/functions/*
-
-# Common ignores
-node_modules/
-tests/
-*.log
